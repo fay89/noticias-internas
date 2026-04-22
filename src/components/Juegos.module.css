@@ -65,7 +65,7 @@
 }
 
 .cellFound {
-  background-color: var(--accent-red-main);
+  background-color: #22c55e;
   color: white;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .wordFound {
-  background: var(--accent-red-main);
+  background: #22c55e;
   color: white;
   text-decoration: line-through;
 }
@@ -203,4 +203,70 @@
 @keyframes popIn {
   0% { transform: scale(0.9); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- SUDOKU --- */
+.sudokuWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.sudokuGrid {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--text-primary);
+  background: var(--text-primary);
+  gap: 1px;
+}
+
+.sudokuRow {
+  display: flex;
+  gap: 1px;
+}
+
+.sudokuCell {
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background: white;
+  color: var(--text-primary);
+  transition: background 0.2s;
+  padding: 0;
+}
+
+@media (max-width: 600px) {
+  .sudokuCell {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+.sudokuCell:focus {
+  background: #e2e8f0;
+}
+
+.sudokuCellFixed {
+  background: #f8fafc;
+  color: var(--text-secondary);
+}
+
+.sudokuCellRightThick {
+  margin-right: 2px;
+}
+
+.sudokuCellBottomThick {
+  margin-bottom: 2px;
+}
+
+.errorMessage {
+  margin-top: 15px;
+  color: var(--accent-red-main);
+  text-align: center;
+  font-weight: bold;
 }

@@ -1,5 +1,6 @@
 import Crucigrama from '@/components/Crucigrama';
 import SopaDeLetras from '@/components/SopaDeLetras';
+import Sudoku from '@/components/Sudoku';
 
 export default function JuegosPage() {
   return (
@@ -13,6 +14,7 @@ export default function JuegosPage() {
 
       <SopaDeLetras />
       <Crucigrama />
+      <Sudoku />
       
     </div>
   );

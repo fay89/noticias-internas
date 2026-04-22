@@ -1,6 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Anton } from 'next/font/google';
 import './globals.css';
 import layoutStyles from './layout.module.css';
+
+const anton = Anton({ weight: '400', subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Enfoque Nublo - El Latido del Propósito',
@@ -35,7 +38,7 @@ export default function RootLayout({
               <div className={layoutStyles.logoContainer}>
                 {/* Asegúrate de tener una imagen llamada logo.png en tu carpeta public/ */}
                 <img src="/logo.png" alt="Logo Enfoque Nublo" className={layoutStyles.logoImage} />
-                <h1 className={layoutStyles.newspaperTitle}>Enfoque Nublo</h1>
+                <h1 className={`${layoutStyles.newspaperTitle} ${anton.className}`}>Enfoque Nublo</h1>
               </div>
               <div className={layoutStyles.actions}>
                 <a href="/login" className="btn-primary">Entrar</a>
