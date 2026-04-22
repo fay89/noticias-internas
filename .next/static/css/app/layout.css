@@ -1,23 +1,27 @@
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/app/globals.css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Colors */
-  --bg-color: #f4f6f8; /* Light neutral */
-  --text-primary: #1e293b; /* Dark slate */
-  --text-secondary: #475569;
+  /* Vibrant Dark Mode Palette */
+  --bg-color: #0b0f19; /* Very dark blue */
+  --bg-surface: rgba(17, 24, 39, 0.7); /* Glassmorphism base */
   
-  --accent-blue: #2563eb; /* Electric Blue */
-  --accent-green: #10b981; /* Vibrant Green */
-  --accent-earth: #b45309; /* Earth Tone / Warm */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
   
-  --border-color: #cbd5e1;
-  --header-bg: #ffffff;
+  /* Neon Accents */
+  --accent-cyan: #00f2fe;
+  --accent-blue: #4facfe;
+  --accent-pink: #ff0844;
+  --accent-purple: #8b5cf6;
+  --accent-green: #10b981;
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --header-bg: rgba(11, 15, 25, 0.85);
   
   /* Fonts */
-  --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
   
   /* Spacing */
@@ -35,6 +39,10 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   line-height: 1.6;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(79, 172, 254, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(255, 8, 68, 0.05), transparent 25%);
+  background-attachment: fixed;
 }
 
 a {
@@ -43,9 +51,23 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1.2;
+}
+
+/* Gradient Text Utilities */
+.text-gradient-blue {
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-pink {
+  background: linear-gradient(to right, var(--accent-pink), #ffb199);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Container Utility */
@@ -55,30 +77,53 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 20px;
 }
 
-/* Buttons */
+/* Premium Buttons */
 .btn-primary {
   display: inline-block;
-  background-color: var(--accent-blue);
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
   color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 12px 28px;
+  border-radius: 30px;
   font-family: var(--font-sans);
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
   border: none;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .btn-primary:hover {
-  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.5);
 }
 
 .btn-green {
-  background-color: var(--accent-green);
+  background: linear-gradient(135deg, var(--accent-green) 0%, #34d399 100%);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .btn-green:hover {
-  background-color: #059669;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
@@ -86,24 +131,32 @@ h1, h2, h3, h4, h5, h6 {
   \*********************************************************************************************************************************************************************************************************************************************************************/
 .layout_header__2zrGa {
   background-color: var(--header-bg);
-  border-bottom: 2px solid var(--accent-blue);
-  padding: 20px 0 0 0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0 0 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .layout_headerTop__r5NMn {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .layout_date___lTxh {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   flex: 1 1;
+  font-weight: 500;
 }
 
 .layout_logo__RqH9D {
@@ -112,19 +165,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .layout_logo__RqH9D h1 {
-  font-size: 3rem;
-  letter-spacing: -1px;
-  color: var(--accent-blue);
-  margin-bottom: 5px;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2px;
 }
 
 .layout_subtitle__fpl1h {
   font-family: var(--font-sans);
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  color: var(--accent-green);
-  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
 .layout_actions__Xw40v {
@@ -141,33 +199,50 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   list-style: none;
-  gap: 30px;
+  gap: 40px;
 }
 
 .layout_nav__3Q3Pt a {
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
-  color: var(--text-primary);
-  transition: color 0.2s ease;
-  padding-bottom: 4px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.layout_nav__3Q3Pt a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+  transition: width 0.3s ease;
 }
 
 .layout_nav__3Q3Pt a:hover {
-  color: var(--accent-blue);
-  border-bottom: 2px solid var(--accent-blue);
+  color: var(--text-primary);
+}
+
+.layout_nav__3Q3Pt a:hover::after {
+  width: 100%;
 }
 
 .layout_main__mXTwS {
   min-height: 80vh;
-  padding: 40px 0;
+  padding: 50px 0;
 }
 
 .layout_footer__lSNf_ {
-  background-color: var(--text-primary);
-  color: white;
+  background-color: #05080f;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
   text-align: center;
   padding: 40px 0;
   margin-top: 60px;
+  font-size: 0.9rem;
 }
 

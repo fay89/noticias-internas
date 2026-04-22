@@ -1,23 +1,30 @@
 .header {
   background-color: var(--header-bg);
-  border-bottom: 2px solid var(--accent-blue);
-  padding: 20px 0 0 0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .headerTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .date {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   flex: 1;
+  font-weight: 500;
 }
 
 .logo {
@@ -26,19 +33,24 @@
 }
 
 .logo h1 {
-  font-size: 3rem;
-  letter-spacing: -1px;
-  color: var(--accent-blue);
-  margin-bottom: 5px;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2px;
 }
 
 .subtitle {
   font-family: var(--font-sans);
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  color: var(--accent-green);
-  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
 .actions {
@@ -55,32 +67,49 @@
   display: flex;
   justify-content: center;
   list-style: none;
-  gap: 30px;
+  gap: 40px;
 }
 
 .nav a {
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
-  color: var(--text-primary);
-  transition: color 0.2s ease;
-  padding-bottom: 4px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+  transition: width 0.3s ease;
 }
 
 .nav a:hover {
-  color: var(--accent-blue);
-  border-bottom: 2px solid var(--accent-blue);
+  color: var(--text-primary);
+}
+
+.nav a:hover::after {
+  width: 100%;
 }
 
 .main {
   min-height: 80vh;
-  padding: 40px 0;
+  padding: 50px 0;
 }
 
 .footer {
-  background-color: var(--text-primary);
-  color: white;
+  background-color: #05080f;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
   text-align: center;
   padding: 40px 0;
   margin-top: 60px;
+  font-size: 0.9rem;
 }
