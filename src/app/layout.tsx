@@ -23,7 +23,6 @@ export default function RootLayout({
                 {/* Asegúrate de tener una imagen llamada logo.png en tu carpeta public/ */}
                 <img src="/logo.png" alt="Logo Noticias Internas" className={layoutStyles.logoImage} />
                 <h1 className={layoutStyles.newspaperTitle}>Noticias Internas</h1>
-                <p className={layoutStyles.subtitle}>El Latido del Propósito</p>
               </div>
               <div className={layoutStyles.actions}>
                 <a href="/login" className="btn-primary">Entrar</a>
