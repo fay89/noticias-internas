@@ -19,9 +19,10 @@ export default function RootLayout({
           <div className="container">
             <div className={layoutStyles.headerTop}>
               <div className={layoutStyles.date}>{new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-              <div className={layoutStyles.logo}>
-                <h1>Noticias Internas</h1>
-                <p className={layoutStyles.subtitle}>El Eco del Propósito</p>
+              <div className={layoutStyles.logoContainer}>
+                {/* Se asume que el usuario guardará la imagen como logo.png en public/ */}
+                <img src="/logo.png" alt="Hotel Cristina" className={layoutStyles.logoImage} />
+                <p className={layoutStyles.subtitle}>El Latido del Propósito</p>
               </div>
               <div className={layoutStyles.actions}>
                 <a href="/login" className="btn-primary">Entrar</a>
