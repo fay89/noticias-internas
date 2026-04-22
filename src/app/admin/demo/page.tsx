@@ -7,77 +7,97 @@ import { useRouter } from 'next/navigation';
 
 const DEMO_ARTICLES = [
   {
-    title: 'La nueva ley europea impulsa la economía circular en nuestras operaciones',
+    title: 'La nueva directiva europea de sostenibilidad: Un catalizador para la excelencia operativa y la economía circular',
     category: 'La Noticia Inspiradora',
     imageUrl: 'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     content: `
-      <p>A partir de este nuevo año, el panorama global nos invita a dar un paso al frente en materia de <strong>sostenibilidad y consciencia ambiental</strong>. Las recientes normativas aprobadas en el marco europeo no son solo una obligación legal, sino una confirmación de que nuestro propósito de empresa está perfectamente alineado con el futuro del planeta.</p>
+      <p>A partir del presente ejercicio fiscal, el panorama global nos invita a dar un paso al frente de manera contundente en materia de <strong>sostenibilidad corporativa y consciencia ambiental</strong>. Las recientes normativas aprobadas en el marco europeo han dejado de ser meras obligaciones legales para convertirse en una oportunidad estratégica que nos permite confirmar que el propósito de nuestra organización está perfectamente alineado con la preservación del futuro del planeta.</p>
       <br/>
-      <p>Según los expertos, la transición hacia una economía circular requerirá que líderes de todos los departamentos colaboren de manera estrecha. <em>"Es el momento de demostrar que el propósito no está solo en los carteles, sino en nuestras decisiones diarias"</em>, afirmó nuestro equipo de estrategia global.</p>
+      <p>Según los analistas del sector, la transición hacia un modelo de economía circular requerirá que los líderes de todos los departamentos, desde Operaciones hasta Recursos Humanos, colaboren de manera sinérgica y estrecha. <em>"Es el momento crítico para demostrar que nuestro propósito corporativo no es una simple declaración en los pasillos, sino el filtro principal a través del cual tomamos nuestras decisiones operativas diarias"</em>, afirmó nuestro Comité de Estrategia Global durante la última convención.</p>
+      <br/>
       <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sostenibilidad" />
-      <p>El reto ahora está en adaptar nuestros procesos. Todos los embajadores están llamados a aportar ideas desde sus áreas de influencia.</p>
+      <br/>
+      <p>El verdadero reto ahora reside en auditar y adaptar nuestros procesos de suministro y gestión de residuos. Se implementarán nuevos protocolos de eficiencia energética en nuestras sedes y se priorizará a proveedores que certifiquen prácticas de comercio justo. Todos los embajadores de la marca están llamados a liderar esta transformación, aportando ideas innovadoras desde sus respectivas áreas de influencia para consolidarnos como referentes en la industria.</p>
     `
   },
   {
-    title: 'Carlos Mendoza: Liderando con Empatía en el Equipo Sur',
+    title: 'Carlos Mendoza: Redefiniendo el Liderazgo Empático y la Excelencia en la Región Sur',
     category: 'Embajador Destacado',
     imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     content: `
-      <p>Este mes destacamos a Carlos Mendoza, quien ha logrado transformar el clima laboral de su equipo aplicando una herramienta muy sencilla pero poderosa: <strong>la escucha activa</strong>.</p>
-      <p>Carlos nos cuenta que su rutina cambió cuando decidió dedicar los primeros 10 minutos de cada reunión simplemente a preguntar <em>"¿Cómo están hoy?"</em> y escuchar sin interrumpir.</p>
-      <p>Los resultados hablan por sí solos: la rotación de su equipo ha disminuido un 15% y la motivación general está en su punto más alto. Un verdadero ejemplo de liderazgo consciente.</p>
+      <p>Este mes nos enorgullece destacar la extraordinaria labor de Carlos Mendoza, Director de la Región Sur, quien ha logrado transformar radicalmente el clima laboral y los índices de satisfacción de su equipo aplicando una competencia fundamental del liderazgo contemporáneo: <strong>la empatía estratégica y la escucha activa</strong>.</p>
+      <br/>
+      <p>Carlos nos comparte que el punto de inflexión en su gestión ocurrió cuando decidió reformular la estructura de sus reuniones semanales. En lugar de comenzar directamente con la revisión de KPIs y métricas de rendimiento, estableció un protocolo de dedicar los primeros 15 minutos exclusivamente a entender la situación emocional y operativa de su equipo mediante la simple pero poderosa pregunta: <em>"¿Qué obstáculos os impiden dar vuestro máximo potencial hoy, y cómo puedo ayudaros a eliminarlos?"</em>.</p>
+      <br/>
+      <p>Los resultados de esta aproximación humana han sido extraordinarios: la rotación de personal en su región ha disminuido un 22% en el último semestre, la productividad ha experimentado un repunte del 14%, y las encuestas de clima interno muestran niveles históricos de motivación. Carlos es el claro ejemplo de que un liderazgo consciente y vulnerable es la herramienta más eficaz para construir equipos de alto rendimiento.</p>
     `
   },
   {
-    title: 'Entrevista a Elena Ramos: "El Propósito como brújula"',
+    title: 'Entrevista Exclusiva con Elena Ramos, VP de Operaciones: "El Propósito Estratégico como Motor de Rentabilidad"',
     category: 'Líder Invitado',
     imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     content: `
-      <p>Tuvimos el honor de sentarnos a conversar con Elena Ramos, Directora de Operaciones Internacionales, sobre los retos de mantener el propósito vivo en tiempos de crisis.</p>
-      <p><strong>P: Elena, ¿qué significa para ti el liderazgo con propósito?</strong></p>
-      <p>R: Para mí, significa que cuando las cosas van mal, no tomamos la decisión más rápida o barata, sino la que nos deja dormir tranquilos sabiendo que fuimos fieles a nuestros valores.</p>
+      <p>Tuvimos el privilegio de sentarnos a conversar en profundidad con Elena Ramos, nuestra Vicepresidenta de Operaciones Internacionales, sobre los complejos desafíos de mantener el propósito fundacional vivo y operativo durante periodos de incertidumbre económica global.</p>
+      <br/>
+      <p><strong>P: Elena, desde una perspectiva puramente operativa, ¿qué significa para ti el "liderazgo con propósito"? ¿No entra en conflicto a veces con los márgenes de beneficio?</strong></p>
+      <p>R: Esa es la falsa dicotomía contra la que debemos luchar cada día. Para mí, liderar con propósito significa entender que cuando las circunstancias del mercado se vuelven adversas, no debemos recurrir inmediatamente a la decisión que parezca más barata a corto plazo. Significa tener la valentía de elegir el camino que nos permite ser congruentes con nuestros valores. A la larga, esa coherencia es precisamente lo que fideliza a nuestros clientes y retiene al talento clave. La integridad tiene un ROI altísimo, aunque no siempre se refleje en el Excel del mes siguiente.</p>
+      <br/>
       <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Entrevista" />
-      <p>Puedes escuchar la entrevista completa en nuestro próximo podcast interno.</p>
+      <br/>
+      <p><strong>P: ¿Cómo podemos asegurar que los equipos de primera línea, que enfrentan la presión del día a día, no pierdan de vista esa visión global?</strong></p>
+      <p>R: A través de la comunicación constante y la delegación de confianza. Si microgestionamos, matamos el propósito. Si empoderamos y damos contexto, el propósito florece.</p>
+      <p><em>Puedes escuchar la entrevista completa de 45 minutos en el próximo episodio de nuestro podcast corporativo interno, disponible el próximo jueves.</em></p>
     `
   },
   {
-    title: '3 Pasos para dominar la Escucha Activa',
+    title: 'Masterclass: 4 Estrategias Avanzadas para Dominar la Escucha Activa en Entornos de Alta Presión',
     category: 'Cápsula de Liderazgo',
     imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     content: `
-      <p>A veces oímos, pero no escuchamos. Aquí tienes 3 tips para mejorar:</p>
+      <p>En la dinámica corporativa actual, a menudo oímos las palabras, pero no llegamos a escuchar el mensaje subyacente. La verdadera escucha activa es una habilidad cognitiva que requiere energía y foco. Presentamos cuatro técnicas validadas para elevar la calidad de tus interacciones profesionales:</p>
+      <br/>
       <ol>
-        <li><strong>Contacto visual:</strong> Deja el móvil o el portátil. Mira a la persona a los ojos.</li>
-        <li><strong>No prepares tu respuesta:</strong> Mientras el otro habla, tu cerebro no debe estar pensando en qué contestar, solo en comprender.</li>
-        <li><strong>Parafrasea:</strong> Al terminar, haz un resumen de lo que entendiste: <em>"Si te he entendido bien, lo que te preocupa es..."</em></li>
+        <li><strong>Suspensión del diálogo interno:</strong> El mayor obstáculo para escuchar es estar preparando tu refutación mentalmente mientras el interlocutor habla. Concéntrate deliberadamente en silenciar esa voz y asume la postura de un aprendiz curioso.</li>
+        <li><strong>Lectura del lenguaje no verbal:</strong> Los estudios indican que más del 70% de la comunicación en situaciones de estrés es no verbal. Observa la tensión en los hombros, el contacto visual y el tono de voz de tu equipo. A menudo, lo que no se dice es el verdadero problema a resolver.</li>
+        <li><strong>El poder del silencio táctico:</strong> Cuando un empleado termine de explicar un problema complejo, no llenes el vacío inmediatamente. Cuenta hasta tres mentalmente. Esos segundos extra a menudo impulsan a la persona a revelar la verdadera raíz de su preocupación.</li>
+        <li><strong>Validación reflexiva:</strong> Antes de ofrecer soluciones (el impulso natural de todo líder), valida la emoción y el dato: <em>"Si te he comprendido correctamente, la frustración principal viene de los cuellos de botella en el software, ¿es correcto?"</em>. Esto genera seguridad psicológica inmediata.</li>
       </ol>
-      <p>¡Ponlo a prueba hoy mismo!</p>
     `
   },
   {
-    title: 'Libro del mes: "Los líderes comen al final" de Simon Sinek',
+    title: 'Análisis Estratégico: "El Juego Infinito" de Simon Sinek y su Aplicación en Nuestra Cultura',
     category: 'Recomendado',
     imageUrl: '',
     content: `
-      <p>Una lectura obligatoria para cualquier líder. Sinek explora por qué en algunas organizaciones los equipos se apoyan mutuamente hasta las últimas consecuencias, mientras que en otras predominan las peleas internas.</p>
-      <p>La clave, argumenta, está en crear un "Círculo de Seguridad". Si todavía no lo has leído, te invitamos a buscarlo en nuestra biblioteca corporativa.</p>
+      <p>Esta semana recomendamos una lectura que consideramos fundamental para cualquier persona con responsabilidades de gestión: <strong>"El Juego Infinito" de Simon Sinek</strong>. En esta obra, Sinek redefine la forma en que evaluamos el éxito empresarial, alejándose de las métricas trimestrales para enfocarse en la sostenibilidad a largo plazo.</p>
+      <br/>
+      <p>Sinek postula que los líderes tradicionales juegan un "juego finito" (enfocado en superar a la competencia inmediata y ganar el trimestre), mientras que los líderes excepcionales juegan el "juego infinito", cuyo único objetivo es asegurar que la organización tenga la resiliencia y la cultura necesarias para seguir existiendo y mejorando en el futuro.</p>
+      <br/>
+      <p>La lección más aplicable para nuestra realidad corporativa es la creación de un "Círculo de Seguridad". Cuando los líderes fomentan una cultura donde los empleados se sienten protegidos frente a las amenazas internas (culpas, políticas de oficina, miedos a represalias), toda esa energía se redirige hacia la innovación y la protección contra amenazas externas (competencia, crisis de mercado). El libro ya se encuentra disponible para su préstamo en la plataforma de e-learning corporativa.</p>
     `
   },
   {
-    title: 'El reto de conciliar velocidad y ética en las decisiones diarias',
+    title: 'El Desafío de la Agilidad Ética: Cómo Tomar Decisiones Rápidas sin Comprometer Nuestros Valores',
     category: 'Tribuna de Opinión',
     imageUrl: '',
     content: `
-      <p>A menudo el mercado nos exige respuestas en 24 horas. Como líderes, sentimos la presión de entregar resultados rápidos. Sin embargo, ¿qué pasa cuando la rapidez compromete nuestros estándares éticos?</p>
-      <p>Desde mi departamento he notado que tomarse 5 minutos adicionales para hacer la pregunta <em>"¿Es esto lo correcto?"</em> nos ha ahorrado meses de dolores de cabeza. La verdadera agilidad no es correr a ciegas, es correr en la dirección correcta.</p>
+      <p>En el vertiginoso ecosistema actual, el mercado nos exige tiempos de respuesta que se miden en horas, no en semanas. Como líderes, sentimos una presión constante y asfixiante por entregar resultados inmediatos. Sin embargo, me pregunto a menudo: ¿qué sucede cuando la idolatría por la velocidad compromete nuestros estándares éticos y de calidad?</p>
+      <br/>
+      <p>Desde la Dirección de Innovación hemos comprobado que, paradójicamente, desacelerar en los momentos críticos es lo que nos hace más rápidos a largo plazo. Tomarse 5 minutos adicionales antes de autorizar un nuevo proceso para plantearnos la pregunta fundamental —<em>"¿Es esta solución coherente con nuestro propósito y respetuosa con el cliente final?"</em>— nos ha ahorrado meses de costosos reprocesos, crisis de reputación y fricciones en el equipo.</p>
+      <br/>
+      <p>Debemos desterrar la idea de que ser éticos nos hace lentos. La verdadera agilidad no consiste en correr a ciegas hacia cualquier dirección, sino en avanzar a paso firme sabiendo que cada paso consolida nuestra reputación y fortalece nuestra marca. Os invito a todos a ser valientes y atreveros a poner el freno cuando el instinto os diga que la decisión rápida no es la decisión correcta.</p>
     `
   },
   {
-    title: 'Carta al Editor: Gracias por la nueva iniciativa de salud mental',
+    title: 'Resultados e Impacto del Nuevo Programa Integral de Bienestar y Salud Mental',
     category: 'Tribuna de Opinión',
     imageUrl: '',
     content: `
-      <p>Escribo a este buzón abierto para agradecer profundamente las recientes charlas sobre salud mental y resiliencia que se han implementado. Como embajador de mi área, he visto a compañeros abrirse y apoyarse como nunca antes. Sigamos fomentando estos espacios seguros.</p>
+      <p>Utilizo este espacio abierto para hacer balance sobre los primeros meses de implementación de nuestro programa "Mindful Leadership". Cuando desde Recursos Humanos propusimos integrar talleres de salud mental y resiliencia emocional en horario laboral, sabíamos que estábamos rompiendo un tabú corporativo histórico.</p>
+      <br/>
+      <p>Hoy, los datos nos respaldan. El uso del servicio de apoyo psicológico anónimo ha superado nuestras expectativas, demostrando que la necesidad estaba latente. Pero más allá de las estadísticas, lo más valioso ha sido el cambio cualitativo en nuestros pasillos y reuniones virtuales. Como embajador del programa, he presenciado a directores de área compartir abiertamente sus estrategias para gestionar el estrés, normalizando conversaciones que hace un año eran impensables.</p>
+      <br/>
+      <p>Sigamos fomentando estos espacios de vulnerabilidad segura. Un equipo sano a nivel mental no solo es un equipo más productivo, es el único tipo de equipo capaz de innovar verdaderamente y sostener nuestro propósito en el tiempo. Gracias a todos por abrazar esta iniciativa con tanta madurez.</p>
     `
   }
 ];
