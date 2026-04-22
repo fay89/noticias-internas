@@ -3,8 +3,21 @@ import './globals.css';
 import layoutStyles from './layout.module.css';
 
 export const metadata: Metadata = {
-  title: 'Noticias Internas - El Latido del Propósito',
+  title: 'Enfoque Nublo - El Latido del Propósito',
   description: 'Periódico digital interno para embajadores y líderes.',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Enfoque Nublo',
+  },
+};
+
+export const viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -21,8 +34,8 @@ export default function RootLayout({
               <div className={layoutStyles.date}>{new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
               <div className={layoutStyles.logoContainer}>
                 {/* Asegúrate de tener una imagen llamada logo.png en tu carpeta public/ */}
-                <img src="/logo.png" alt="Logo Noticias Internas" className={layoutStyles.logoImage} />
-                <h1 className={layoutStyles.newspaperTitle}>Noticias Internas</h1>
+                <img src="/logo.png" alt="Logo Enfoque Nublo" className={layoutStyles.logoImage} />
+                <h1 className={layoutStyles.newspaperTitle}>Enfoque Nublo</h1>
               </div>
               <div className={layoutStyles.actions}>
                 <a href="/login" className="btn-primary">Entrar</a>
@@ -30,10 +43,10 @@ export default function RootLayout({
             </div>
             <nav className={layoutStyles.nav}>
               <ul>
-                <li><a href="#latido">El Latido del Propósito</a></li>
-                <li><a href="#rostros">Rostros con Sentido</a></li>
-                <li><a href="#laboratorio">El Laboratorio</a></li>
-                <li><a href="#tribuna">Tribuna de Opinión</a></li>
+                <li><a href="/#latido">El Latido del Propósito</a></li>
+                <li><a href="/#rostros">Rostros con Sentido</a></li>
+                <li><a href="/#laboratorio">El Laboratorio</a></li>
+                <li><a href="/juegos">Juegos y Retos</a></li>
               </ul>
             </nav>
           </div>
@@ -45,7 +58,7 @@ export default function RootLayout({
 
         <footer className={layoutStyles.footer}>
           <div className="container">
-            <p>&copy; {new Date().getFullYear()} Noticias Internas - Embajadores en Red</p>
+            <p>&copy; {new Date().getFullYear()} Enfoque Nublo - Embajadores en Red</p>
           </div>
         </footer>
       </body>

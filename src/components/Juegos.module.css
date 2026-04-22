@@ -1,0 +1,206 @@
+.gameContainer {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  margin-bottom: 40px;
+}
+
+.gameTitle {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.instructions {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+}
+
+/* --- SOPA DE LETRAS --- */
+.sopaGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  user-select: none;
+  touch-action: none; /* Prevents scrolling while swiping on grid */
+}
+
+.sopaRow {
+  display: flex;
+  gap: 2px;
+}
+
+.sopaCell {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.1s;
+}
+
+@media (max-width: 600px) {
+  .sopaCell {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+}
+
+.cellSelected {
+  background-color: var(--accent-gold);
+  color: white;
+}
+
+.cellFound {
+  background-color: var(--accent-red-main);
+  color: white;
+}
+
+.wordList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.wordItem {
+  background: #e2e8f0;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+}
+
+.wordFound {
+  background: var(--accent-red-main);
+  color: white;
+  text-decoration: line-through;
+}
+
+/* --- CRUCIGRAMA --- */
+.crucigramaLayout {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.crucigramaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cruciRow {
+  display: flex;
+  gap: 2px;
+}
+
+.cruciCellBlack {
+  width: 45px;
+  height: 45px;
+  background-color: transparent;
+}
+
+.cruciCellWrap {
+  width: 45px;
+  height: 45px;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .cruciCellBlack, .cruciCellWrap {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.cruciInput {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: white;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.cruciInput:focus {
+  border-color: var(--accent-red-main);
+  box-shadow: 0 0 0 2px rgba(191, 18, 44, 0.2);
+}
+
+.cruciInputCorrect {
+  background-color: #dcfce7;
+  border-color: #22c55e;
+  color: #166534;
+}
+
+.cruciNumber {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.crucigramaClues {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.clueGroup h4 {
+  color: var(--accent-red-main);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.clueGroup p {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.successMessage {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #dcfce7;
+  color: #166534;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
