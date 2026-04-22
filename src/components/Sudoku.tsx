@@ -4,15 +4,15 @@ import { useState } from 'react';
 import styles from './Juegos.module.css';
 
 const INITIAL_BOARD = [
-  [5, 3, 0, 0, 7, 0, 0, 0, 0],
-  [6, 0, 0, 1, 9, 5, 0, 0, 0],
-  [0, 9, 8, 0, 0, 0, 0, 6, 0],
-  [8, 0, 0, 0, 6, 0, 0, 0, 3],
-  [4, 0, 0, 8, 0, 3, 0, 0, 1],
-  [7, 0, 0, 0, 2, 0, 0, 0, 6],
-  [0, 6, 0, 0, 0, 0, 2, 8, 0],
-  [0, 0, 0, 4, 1, 9, 0, 0, 5],
-  [0, 0, 0, 0, 8, 0, 0, 7, 9]
+  [5, 3, 0, 0, 7, 0, 9, 1, 2],
+  [6, 0, 2, 1, 9, 5, 0, 4, 8],
+  [0, 9, 8, 0, 4, 0, 5, 6, 0],
+  [8, 0, 9, 0, 6, 1, 4, 0, 3],
+  [4, 2, 0, 8, 0, 3, 0, 9, 1],
+  [7, 0, 3, 9, 2, 0, 8, 0, 6],
+  [0, 6, 1, 0, 3, 0, 2, 8, 0],
+  [2, 8, 0, 4, 1, 9, 0, 0, 5],
+  [3, 4, 5, 0, 8, 0, 0, 7, 9]
 ];
 
 export default function Sudoku() {
@@ -92,7 +92,7 @@ export default function Sudoku() {
 
   return (
     <div className={styles.gameContainer}>
-      <h3 className={styles.gameTitle}>Sudoku: Nivel Medio</h3>
+      <h3 className={styles.gameTitle}>Sudoku: Nivel Fácil</h3>
       <p className={styles.instructions}>Rellena las casillas vacías con números del 1 al 9. No repitas números en la misma fila, columna o bloque de 3x3.</p>
       
       <div className={styles.sudokuWrapper}>
