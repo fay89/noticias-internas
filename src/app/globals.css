@@ -1,24 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Vibrant Dark Mode Palette */
-  --bg-color: #0b0f19; /* Very dark blue / almost black */
-  --bg-surface: rgba(17, 24, 39, 0.7); /* Glassmorphism base */
+  /* Clean Light Mode Palette */
+  --bg-color: #ffffff; /* Fondo blanco puro */
+  --bg-surface: rgba(255, 255, 255, 0.95); /* Glassmorphism light */
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  --text-primary: #0f172a; /* Dark slate */
+  --text-secondary: #475569; /* Medium slate */
   
   /* Hotel Cristina Red Accents */
-  --accent-red-light: #ff4d6d; /* Lighter red for hover/glow */
+  --accent-red-light: #ff4d6d;
   --accent-red-main: #bf122c; /* Logo Red */
-  --accent-red-dark: #8a0b20; /* Deep red */
+  --accent-red-dark: #8a0b20;
   
   /* Complementary colors (elegant) */
-  --accent-gold: #c5a059; /* To match the 5 stars vibe without being loud */
-  --accent-neutral: #334155;
+  --accent-gold: #c5a059;
   
-  --border-color: rgba(255, 255, 255, 0.1);
-  --header-bg: rgba(11, 15, 25, 0.85);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --header-bg: rgba(255, 255, 255, 0.95);
   
   /* Fonts */
   --font-sans: 'Inter', sans-serif;
@@ -39,7 +38,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(191, 18, 44, 0.05), transparent 25%),
+    radial-gradient(circle at 15% 50%, rgba(191, 18, 44, 0.03), transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(197, 160, 89, 0.03), transparent 25%);
   background-attachment: fixed;
 }
@@ -76,24 +75,24 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   border: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(191, 18, 44, 0.3);
+  box-shadow: 0 4px 15px rgba(191, 18, 44, 0.2);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(191, 18, 44, 0.5);
+  box-shadow: 0 8px 25px rgba(191, 18, 44, 0.4);
 }
 
 .btn-green {
   background: linear-gradient(135deg, var(--accent-gold) 0%, #e2c484 100%);
-  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.2);
   color: #000;
 }
 
 .btn-green:hover {
-  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5);
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
 }
 
 /* Glassmorphism Cards */
@@ -109,6 +108,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(191, 18, 44, 0.4);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(191, 18, 44, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }

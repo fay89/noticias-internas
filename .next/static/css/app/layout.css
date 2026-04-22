@@ -4,24 +4,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Vibrant Dark Mode Palette */
-  --bg-color: #0b0f19; /* Very dark blue / almost black */
-  --bg-surface: rgba(17, 24, 39, 0.7); /* Glassmorphism base */
+  /* Clean Light Mode Palette */
+  --bg-color: #ffffff; /* Fondo blanco puro */
+  --bg-surface: rgba(255, 255, 255, 0.95); /* Glassmorphism light */
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  --text-primary: #0f172a; /* Dark slate */
+  --text-secondary: #475569; /* Medium slate */
   
   /* Hotel Cristina Red Accents */
-  --accent-red-light: #ff4d6d; /* Lighter red for hover/glow */
+  --accent-red-light: #ff4d6d;
   --accent-red-main: #bf122c; /* Logo Red */
-  --accent-red-dark: #8a0b20; /* Deep red */
+  --accent-red-dark: #8a0b20;
   
   /* Complementary colors (elegant) */
-  --accent-gold: #c5a059; /* To match the 5 stars vibe without being loud */
-  --accent-neutral: #334155;
+  --accent-gold: #c5a059;
   
-  --border-color: rgba(255, 255, 255, 0.1);
-  --header-bg: rgba(11, 15, 25, 0.85);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --header-bg: rgba(255, 255, 255, 0.95);
   
   /* Fonts */
   --font-sans: 'Inter', sans-serif;
@@ -42,7 +41,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(191, 18, 44, 0.05), transparent 25%),
+    radial-gradient(circle at 15% 50%, rgba(191, 18, 44, 0.03), transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(197, 160, 89, 0.03), transparent 25%);
   background-attachment: fixed;
 }
@@ -79,24 +78,24 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   border: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(191, 18, 44, 0.3);
+  box-shadow: 0 4px 15px rgba(191, 18, 44, 0.2);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(191, 18, 44, 0.5);
+  box-shadow: 0 8px 25px rgba(191, 18, 44, 0.4);
 }
 
 .btn-green {
   background: linear-gradient(135deg, var(--accent-gold) 0%, #e2c484 100%);
-  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.2);
   color: #000;
 }
 
 .btn-green:hover {
-  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5);
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
 }
 
 /* Glassmorphism Cards */
@@ -112,8 +111,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(191, 18, 44, 0.4);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(191, 18, 44, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
@@ -129,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
 .layout_headerTop__r5NMn {
@@ -137,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .layout_date___lTxh {
@@ -159,21 +158,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .layout_logoImage__9O_8U {
-  height: 60px; /* Ajusta este valor si lo quieres más grande o pequeño */
+  height: 70px;
   width: auto;
   object-fit: contain;
   margin-bottom: 5px;
-  /* Como el logo tiene fondo blanco/transparente y letras rojas, en un fondo oscuro destacará. 
-     Si el logo es negro, podríamos invertirlo, pero el rojo se verá genial. */
+}
+
+.layout_newspaperTitle__c9toU {
+  font-family: var(--font-sans);
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-top: 5px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .layout_subtitle__fpl1h {
   font-family: var(--font-sans);
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   letter-spacing: 3px;
-  color: var(--accent-gold);
+  color: var(--accent-red-main); /* Cambio a rojo para modo claro */
   font-weight: 700;
+  margin-top: 2px;
 }
 
 .layout_actions__Xw40v {
@@ -215,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .layout_nav__3Q3Pt a:hover {
-  color: var(--text-primary);
+  color: var(--accent-red-main);
 }
 
 .layout_nav__3Q3Pt a:hover::after {
@@ -228,7 +235,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .layout_footer__lSNf_ {
-  background-color: #05080f;
+  background-color: #ffffff;
   border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   text-align: center;
