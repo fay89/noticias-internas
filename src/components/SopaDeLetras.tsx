@@ -1,36 +1,84 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Juegos.module.css';
 
-const GRID = [
-  ['E','M','P','A','T','I','A','Q','W','E','R','T'],
-  ['X','C','A','L','I','D','A','D','Y','U','I','O'],
-  ['P','A','S','D','F','G','H','J','K','L','Z','X'],
-  ['R','E','S','E','R','V','I','C','I','O','C','V'],
-  ['O','B','N','M','Q','W','E','R','T','Y','U','I'],
-  ['P','O','L','I','D','E','R','A','S','D','F','G'],
-  ['O','H','J','K','L','Z','X','C','V','B','N','M'],
-  ['S','Q','W','E','R','E','Q','U','I','P','O','T'],
-  ['I','Y','U','I','O','P','A','S','D','F','G','H'],
-  ['T','J','K','L','Z','X','C','V','B','N','M','Q'],
-  ['O','W','E','R','T','Y','U','I','O','P','A','S'],
-  ['D','F','G','H','J','K','L','Z','X','C','V','B']
-];
+const WORDS_LIST = ['EMPATIA', 'SERVICIO', 'EQUIPO', 'LIDER', 'PROPOSITO', 'CALIDAD', 'SONRISA', 'ACOGIDA', 'EXCELENCIA', 'VALOR'];
+const SIZE = 14;
 
-const WORDS = [
-  { word: 'EMPATIA', start: [0, 0], end: [0, 6] },
-  { word: 'CALIDAD', start: [1, 1], end: [1, 7] },
-  { word: 'SERVICIO', start: [3, 2], end: [3, 9] },
-  { word: 'LIDER', start: [5, 2], end: [5, 6] },
-  { word: 'EQUIPO', start: [7, 5], end: [7, 10] },
-  { word: 'PROPOSITO', start: [2, 0], end: [10, 0] }
-];
+interface WordCoord {
+  word: string;
+  start: [number, number];
+  end: [number, number];
+}
+
+function generateSopa(wordsList: string[], size: number) {
+  const grid = Array(size).fill(null).map(() => Array(size).fill(''));
+  const wordCoords: WordCoord[] = [];
+  const dirs = [
+    [0, 1], [1, 0], [1, 1], [-1, 1] // Only forward and down directions to make it slightly easier to read
+  ];
+
+  wordsList.forEach(word => {
+    let placed = false;
+    let attempts = 0;
+    while (!placed && attempts < 500) {
+      attempts++;
+      const dir = dirs[Math.floor(Math.random() * dirs.length)];
+      const startR = Math.floor(Math.random() * size);
+      const startC = Math.floor(Math.random() * size);
+      
+      const endR = startR + dir[0] * (word.length - 1);
+      const endC = startC + dir[1] * (word.length - 1);
+      
+      if (endR >= 0 && endR < size && endC >= 0 && endC < size) {
+        let canPlace = true;
+        for (let i = 0; i < word.length; i++) {
+          const r = startR + dir[0] * i;
+          const c = startC + dir[1] * i;
+          if (grid[r][c] !== '' && grid[r][c] !== word[i]) {
+            canPlace = false;
+            break;
+          }
+        }
+        
+        if (canPlace) {
+          for (let i = 0; i < word.length; i++) {
+            const r = startR + dir[0] * i;
+            const c = startC + dir[1] * i;
+            grid[r][c] = word[i];
+          }
+          wordCoords.push({ word, start: [startR, startC], end: [endR, endC] });
+          placed = true;
+        }
+      }
+    }
+  });
+
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let r = 0; r < size; r++) {
+    for (let c = 0; c < size; c++) {
+      if (grid[r][c] === '') {
+        grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+      }
+    }
+  }
+
+  return { grid, wordCoords };
+}
 
 export default function SopaDeLetras() {
+  const [grid, setGrid] = useState<string[][]>([]);
+  const [words, setWords] = useState<WordCoord[]>([]);
   const [selectedCells, setSelectedCells] = useState<string[]>([]);
   const [foundWords, setFoundWords] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    const { grid: newGrid, wordCoords } = generateSopa(WORDS_LIST, SIZE);
+    setGrid(newGrid);
+    setWords(wordCoords);
+  }, []);
 
   const toggleCell = (r: number, c: number) => {
     const key = `${r}-${c}`;
@@ -59,8 +107,7 @@ export default function SopaDeLetras() {
   };
 
   const checkWord = (cells: string[]) => {
-    // Basic check: just see if selected cells exactly match any word's coordinates
-    WORDS.forEach(w => {
+    words.forEach(w => {
       if (foundWords.includes(w.word)) return;
       
       const wordCells: string[] = [];
@@ -89,10 +136,9 @@ export default function SopaDeLetras() {
     });
   };
 
-  // Helper to determine if a cell is permanently highlighted (found)
   const isCellFound = (r: number, c: number) => {
     return foundWords.some(w => {
-      const wordObj = WORDS.find(x => x.word === w)!;
+      const wordObj = words.find(x => x.word === w)!;
       const [sr, sc] = wordObj.start;
       const [er, ec] = wordObj.end;
       let currR = sr; let currC = sc;
@@ -107,13 +153,15 @@ export default function SopaDeLetras() {
     });
   };
 
+  if (grid.length === 0) return <div>Cargando juego...</div>;
+
   return (
     <div className={styles.gameContainer} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
-      <h3 className={styles.gameTitle}>Sopa de Letras: Liderazgo</h3>
-      <p className={styles.instructions}>Arrastra el ratón o mantén el dedo pulsado para seleccionar las palabras.</p>
+      <h3 className={styles.gameTitle}>Sopa de Letras: Cultura</h3>
+      <p className={styles.instructions}>Encuentra las palabras en vertical, horizontal o diagonal.</p>
       
       <div className={styles.sopaGrid}>
-        {GRID.map((row, r) => (
+        {grid.map((row, r) => (
           <div key={r} className={styles.sopaRow}>
             {row.map((letter, c) => {
               const isSelected = selectedCells.includes(`${r}-${c}`);
@@ -124,7 +172,6 @@ export default function SopaDeLetras() {
                   className={`${styles.sopaCell} ${isSelected ? styles.cellSelected : ''} ${isFound ? styles.cellFound : ''}`}
                   onMouseDown={() => handleMouseDown(r, c)}
                   onMouseEnter={() => handleMouseEnter(r, c)}
-                  // Touch support
                   onTouchStart={() => handleMouseDown(r, c)}
                   onTouchMove={(e) => {
                      const touch = e.touches[0];
@@ -146,14 +193,14 @@ export default function SopaDeLetras() {
       </div>
 
       <div className={styles.wordList}>
-        {WORDS.map(w => (
-          <span key={w.word} className={`${styles.wordItem} ${foundWords.includes(w.word) ? styles.wordFound : ''}`}>
-            {w.word}
+        {WORDS_LIST.map(w => (
+          <span key={w} className={`${styles.wordItem} ${foundWords.includes(w) ? styles.wordFound : ''}`}>
+            {w}
           </span>
         ))}
       </div>
-      {foundWords.length === WORDS.length && (
-        <div className={styles.successMessage}>¡Felicidades! Has encontrado todas las palabras.</div>
+      {foundWords.length === WORDS_LIST.length && (
+        <div className={styles.successMessage}>¡Felicidades! Has encontrado todas las palabras en diagonal, vertical y horizontal.</div>
       )}
     </div>
   );

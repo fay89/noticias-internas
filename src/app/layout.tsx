@@ -35,11 +35,11 @@ export default function RootLayout({
           <div className="container">
             <div className={layoutStyles.headerTop}>
               <div className={layoutStyles.date}>{new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-              <div className={layoutStyles.logoContainer}>
+              <a href="/" className={layoutStyles.logoContainer} style={{textDecoration: 'none'}}>
                 {/* Asegúrate de tener una imagen llamada logo.png en tu carpeta public/ */}
                 <img src="/logo.png" alt="Logo Enfoque Nublo" className={layoutStyles.logoImage} />
                 <h1 className={`${layoutStyles.newspaperTitle} ${anton.className}`}>Enfoque Nublo</h1>
-              </div>
+              </a>
               <div className={layoutStyles.actions}>
                 <a href="/login" className="btn-primary">Entrar</a>
               </div>

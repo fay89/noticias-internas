@@ -26,37 +26,45 @@ const NUMBERS: Record<string, number> = {
   '9-6': 6
 };
 
+const WORDS = [
+  { answer: 'HOTEL', cells: ['0-0','0-1','0-2','0-3','0-4'] },
+  { answer: 'HUESPED', cells: ['0-0','1-0','2-0','3-0','4-0','5-0','6-0'] },
+  { answer: 'SERVICIO', cells: ['3-0','3-1','3-2','3-3','3-4','3-5','3-6','3-7'] },
+  { answer: 'VALOR', cells: ['3-3','4-3','5-3','6-3','7-3'] },
+  { answer: 'LIDERAZGO', cells: ['5-3','5-4','5-5','5-6','5-7','5-8','5-9','5-10','5-11'] },
+  { answer: 'EQUIPO', cells: ['5-6','6-6','7-6','8-6','9-6','10-6'] },
+  { answer: 'PROPOSITO', cells: ['9-6','9-7','9-8','9-9','9-10','9-11','9-12','9-13','9-14'] },
+];
+
 export default function Crucigrama() {
   const [inputs, setInputs] = useState<Record<string, string>>({});
-  const [solved, setSolved] = useState(false);
+  const [correctWords, setCorrectWords] = useState<string[]>([]);
 
   const handleChange = (r: number, c: number, val: string) => {
     const newVal = val.toUpperCase();
     const newInputs = { ...inputs, [`${r}-${c}`]: newVal };
     setInputs(newInputs);
 
-    // Check if solved
-    let isSolved = true;
-    let hasEmpty = false;
-    for (let row = 0; row < GRID.length; row++) {
-      for (let col = 0; col < GRID[row].length; col++) {
-        if (GRID[row][col] !== '*') {
-          if (!newInputs[`${row}-${col}`]) {
-             hasEmpty = true;
-             isSolved = false;
-          } else if (newInputs[`${row}-${col}`] !== GRID[row][col]) {
-             isSolved = false;
-          }
+    // Check words
+    const completed: string[] = [];
+    WORDS.forEach(w => {
+      let isWordComplete = true;
+      w.cells.forEach((cell, idx) => {
+        if (newInputs[cell] !== w.answer[idx]) {
+          isWordComplete = false;
         }
-      }
-    }
-    setSolved(!hasEmpty && isSolved);
+      });
+      if (isWordComplete) completed.push(w.answer);
+    });
+    setCorrectWords(completed);
   };
+
+  const solved = correctWords.length === WORDS.length;
 
   return (
     <div className={styles.gameContainer}>
       <h3 className={styles.gameTitle}>Crucigrama: Cultura y Propósito</h3>
-      <p className={styles.instructions}>Escribe en las casillas blancas para resolver el crucigrama gigante.</p>
+      <p className={styles.instructions}>Escribe en las casillas blancas. ¡Las palabras correctas se iluminarán en verde!</p>
       <div className={styles.crucigramaLayout}>
         <div className={styles.crucigramaGrid}>
           {GRID.map((row, r) => (
@@ -65,7 +73,9 @@ export default function Crucigrama() {
                 if (cell === '*') {
                   return <div key={c} className={styles.cruciCellBlack} />;
                 }
-                const isCorrect = inputs[`${r}-${c}`] === cell;
+                const isGreen = correctWords.some(w => 
+                  WORDS.find(x => x.answer === w)?.cells.includes(`${r}-${c}`)
+                );
                 return (
                   <div key={c} className={styles.cruciCellWrap}>
                     {NUMBERS[`${r}-${c}`] && (
@@ -74,7 +84,7 @@ export default function Crucigrama() {
                     <input
                       type="text"
                       maxLength={1}
-                      className={`${styles.cruciInput} ${isCorrect && solved ? styles.cruciInputCorrect : ''}`}
+                      className={`${styles.cruciInput} ${isGreen ? styles.cruciInputCorrect : ''}`}
                       value={inputs[`${r}-${c}`] || ''}
                       onChange={(e) => handleChange(r, c, e.target.value)}
                     />

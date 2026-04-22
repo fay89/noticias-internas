@@ -256,6 +256,12 @@
   color: var(--text-secondary);
 }
 
+.sudokuCellCorrect {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+  border-color: #22c55e !important;
+}
+
 .sudokuCellRightThick {
   margin-right: 2px;
 }

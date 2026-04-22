@@ -109,10 +109,10 @@ export default function Sudoku() {
                     key={c}
                     type="text"
                     maxLength={1}
-                    className={`${styles.sudokuCell} ${isFixed ? styles.sudokuCellFixed : ''} ${isRightThick ? styles.sudokuCellRightThick : ''} ${isBottomThick ? styles.sudokuCellBottomThick : ''}`}
+                    className={`${styles.sudokuCell} ${isFixed ? styles.sudokuCellFixed : ''} ${isRightThick ? styles.sudokuCellRightThick : ''} ${isBottomThick ? styles.sudokuCellBottomThick : ''} ${solved ? styles.sudokuCellCorrect : ''}`}
                     value={cell === 0 ? '' : cell}
                     onChange={(e) => handleChange(r, c, e.target.value)}
-                    readOnly={isFixed}
+                    readOnly={isFixed || solved}
                   />
                 );
               })}
