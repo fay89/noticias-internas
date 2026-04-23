@@ -255,7 +255,7 @@
     stroke: var(--accent-red-main);
   }
 
-  .publishButton {
+  .nav ul li .publishButton {
     background: #bf122c !important;
     background: linear-gradient(135deg, #bf122c, #ff4d6d) !important;
     border-radius: 12px !important;
@@ -263,10 +263,15 @@
     margin: 0 4px !important;
     padding: 6px 8px !important;
     box-shadow: 0 4px 10px rgba(191, 18, 44, 0.2);
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  .publishButton .navIcon {
+  .nav ul li .publishButton .navIcon {
     stroke: white !important;
+    display: block !important;
   }
 
   .main {
