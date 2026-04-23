@@ -49,7 +49,15 @@ export default function EditorialModal() {
             </div>
 
             <div className={styles.editorialBody}>
-              <p>Bienvenidos a la primera edición de <strong>[Nombre del Periódico]</strong>.</p>
+              <p>Bienvenidos a la primera edición de <strong>Enfoque Nublo</strong>.</p>
+              
+              <div className={styles.imageWrapper}>
+                <img 
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" 
+                  alt="Equipo trabajando con propósito" 
+                  className={styles.editorialImage}
+                />
+              </div>
 
               <p>
                 A menudo se piensa que el liderazgo es una posición en un organigrama o un título en una tarjeta de
