@@ -99,7 +99,7 @@
 .mobileMenuBtn {
   display: none;
   position: fixed;
-  top: 12px;
+  top: 75px;
   left: 15px;
   z-index: 1200;
   background: white;
