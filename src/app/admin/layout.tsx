@@ -11,6 +11,8 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
 
