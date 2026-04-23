@@ -10,6 +10,7 @@ export default function EditorialModal() {
   const openEditorial = () => {
     setIsOpen(true);
     if (audioRef.current) {
+      audioRef.current.volume = 0.2; // Bajar volumen al 20%
       // Intentar reproducir la música
       audioRef.current.play().catch(e => console.log('Autoplay bloqueado:', e));
     }
