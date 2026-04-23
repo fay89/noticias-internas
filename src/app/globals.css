@@ -41,6 +41,8 @@ body {
     radial-gradient(circle at 15% 50%, rgba(191, 18, 44, 0.03), transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(197, 160, 89, 0.03), transparent 25%);
   background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 a {

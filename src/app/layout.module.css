@@ -133,6 +133,10 @@
   display: inline;
 }
 
+.navIcon {
+  display: none;
+}
+
 /* --- MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
   .header {
@@ -191,11 +195,14 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     z-index: 1000;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    padding: 8px 0;
-    padding-bottom: env(safe-area-inset-bottom, 8px);
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+    padding: 10px 0;
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+    border-top: 1px solid var(--border-color);
   }
   .nav ul {
     display: flex !important;
@@ -209,7 +216,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 0.55rem !important;
+    font-size: 0.65rem !important;
     background: transparent !important;
     padding: 2px !important;
     color: var(--text-secondary);
@@ -217,18 +224,28 @@
     text-align: center;
     line-height: 1.2;
     border-radius: 0 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 85px;
+    transition: color 0.3s ease;
   }
   .nav a::after {
     display: none;
   }
-  .nav a[href="/#latido"]::before { content: "📰"; font-size: 1.4rem; margin-bottom: 2px; }
-  .nav a[href="/#rostros"]::before { content: "👥"; font-size: 1.4rem; margin-bottom: 2px; }
-  .nav a[href="/#laboratorio"]::before { content: "🧪"; font-size: 1.4rem; margin-bottom: 2px; }
-  .nav a[href="/juegos"]::before { content: "🎮"; font-size: 1.4rem; margin-bottom: 2px; }
+  
+  .navIcon {
+    display: block !important;
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    stroke: var(--text-secondary);
+    transition: stroke 0.3s ease;
+  }
+
+  .nav a:hover, .nav a:active {
+    color: var(--accent-red-main);
+  }
+
+  .nav a:hover .navIcon, .nav a:active .navIcon {
+    stroke: var(--accent-red-main);
+  }
 
   .main {
     padding-top: 80px; 
