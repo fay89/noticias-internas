@@ -97,3 +97,28 @@
   border-top: 1px solid var(--border-color);
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .articleContainer {
+    padding: 25px 15px;
+  }
+  .header h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 15px;
+  }
+  .category {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    margin-bottom: 15px;
+  }
+  .date {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .content {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+}
