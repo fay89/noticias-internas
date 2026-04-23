@@ -216,7 +216,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 0.65rem !important;
+    font-size: 0.6rem !important;
     background: transparent !important;
     padding: 2px !important;
     color: var(--text-secondary);
@@ -224,7 +224,11 @@
     text-align: center;
     line-height: 1.2;
     border-radius: 0 !important;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 65px;
   }
   .nav a::after {
     display: none;
@@ -245,6 +249,19 @@
 
   .nav a:hover .navIcon, .nav a:active .navIcon {
     stroke: var(--accent-red-main);
+  }
+
+  .publishButton {
+    background: linear-gradient(135deg, var(--accent-red-main), var(--accent-red-light)) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    margin: 0 4px !important;
+    padding: 6px 8px !important;
+    box-shadow: 0 4px 10px rgba(191, 18, 44, 0.2);
+  }
+
+  .publishButton .navIcon {
+    stroke: white !important;
   }
 
   .main {
