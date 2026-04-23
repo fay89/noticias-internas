@@ -67,8 +67,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Premium Buttons */
 .btn-primary {
   display: inline-block;
-  background: linear-gradient(135deg, var(--accent-red-main) 0%, var(--accent-red-light) 100%);
-  color: white;
+  background: #bf122c !important; /* Rojo corporativo sólido */
+  background: linear-gradient(135deg, #bf122c 0%, #ff4d6d 100%) !important;
+  color: white !important;
   padding: 12px 28px;
   border-radius: 30px;
   font-family: var(--font-sans);

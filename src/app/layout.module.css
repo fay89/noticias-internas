@@ -256,7 +256,8 @@
   }
 
   .publishButton {
-    background: linear-gradient(135deg, var(--accent-red-main), var(--accent-red-light)) !important;
+    background: #bf122c !important;
+    background: linear-gradient(135deg, #bf122c, #ff4d6d) !important;
     border-radius: 12px !important;
     color: white !important;
     margin: 0 4px !important;
