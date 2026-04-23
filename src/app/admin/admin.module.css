@@ -99,19 +99,25 @@
 .mobileMenuBtn {
   display: none;
   position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 1100;
-  background: var(--accent-red-main);
-  border: none;
-  color: white;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  top: 12px;
+  left: 15px;
+  z-index: 1200;
+  background: white;
+  border: 1px solid var(--border-color);
+  color: var(--accent-red-main);
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   cursor: pointer;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mobileMenuBtn:active {
+  transform: scale(0.95);
+  background: #f8fafc;
 }
 
 .mobileMenuBtn svg {
