@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import styles from './page.module.css';
+import EditorialModal from '@/components/EditorialModal';
 
 interface Article {
   id: string;
@@ -44,6 +45,7 @@ export default function Home() {
 
   return (
     <div className="container">
+      <EditorialModal />
       <div className={styles.newspaperLayout}>
         <div className={styles.mainContent}>
           
