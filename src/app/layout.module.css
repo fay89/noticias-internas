@@ -139,10 +139,25 @@
     height: 70px !important;
   }
   .newspaperTitle {
-    font-size: 1.6rem !important;
+    font-size: 1.8rem !important;
+    white-space: nowrap;
   }
   .actions {
     margin-top: 5px;
     margin-bottom: 15px;
+  }
+  .nav ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 0 10px;
+  }
+  .nav a {
+    font-size: 0.8rem;
+    display: block;
+    text-align: center;
+    background: #f8fafc;
+    padding: 8px;
+    border-radius: 8px;
   }
 }
