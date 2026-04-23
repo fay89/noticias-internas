@@ -51,11 +51,11 @@
   transition: all 0.1s;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .sopaCell {
-    width: 30px;
-    height: 30px;
-    font-size: 0.9rem;
+    width: min(24px, 6.5vw);
+    height: min(24px, 6.5vw);
+    font-size: 0.75rem;
   }
 }
 
@@ -124,10 +124,18 @@
   position: relative;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .cruciCellBlack, .cruciCellWrap {
-    width: 35px;
-    height: 35px;
+    width: min(24px, 6vw);
+    height: min(24px, 6vw);
+  }
+  .cruciInput {
+    font-size: 0.9rem;
+  }
+  .cruciNumber {
+    font-size: 0.5rem;
+    top: 0;
+    left: 1px;
   }
 }
 
@@ -239,10 +247,10 @@
   padding: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .sudokuCell {
-    width: 35px;
-    height: 35px;
+    width: min(32px, 10vw);
+    height: min(32px, 10vw);
     font-size: 1rem;
   }
 }

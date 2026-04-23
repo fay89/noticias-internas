@@ -62,10 +62,30 @@ export default function RootLayout({
             </div>
             <nav className={layoutStyles.nav}>
               <ul>
-                <li><a href="/#latido">El Latido del Propósito</a></li>
-                <li><a href="/#rostros">Rostros con Sentido</a></li>
-                <li><a href="/#laboratorio">El Laboratorio</a></li>
-                <li><a href="/juegos">Juegos y Retos</a></li>
+                <li>
+                  <a href="/#latido">
+                    <span className={layoutStyles.desktopText}>El Latido del Propósito</span>
+                    <span className={layoutStyles.mobileText}>Inicio</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/#rostros">
+                    <span className={layoutStyles.desktopText}>Rostros con Sentido</span>
+                    <span className={layoutStyles.mobileText}>Rostros</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/#laboratorio">
+                    <span className={layoutStyles.desktopText}>El Laboratorio</span>
+                    <span className={layoutStyles.mobileText}>Aprender</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/juegos">
+                    <span className={layoutStyles.desktopText}>Juegos y Retos</span>
+                    <span className={layoutStyles.mobileText}>Juegos</span>
+                  </a>
+                </li>
               </ul>
             </nav>
           </div>

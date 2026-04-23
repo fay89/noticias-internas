@@ -125,6 +125,14 @@
   font-size: 0.9rem;
 }
 
+.mobileText {
+  display: none;
+}
+
+.desktopText {
+  display: inline;
+}
+
 /* --- MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
   .header {
@@ -169,6 +177,12 @@
   .actions a {
     padding: 6px 12px;
     font-size: 0.8rem;
+  }
+  .desktopText {
+    display: none !important;
+  }
+  .mobileText {
+    display: inline !important;
   }
 
   /* --- BOTTOM NAVIGATION BAR --- */
