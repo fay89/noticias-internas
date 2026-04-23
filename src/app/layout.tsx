@@ -31,6 +31,21 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registrado con éxito con el scope: ', registration.scope);
+                  }, function(err) {
+                    console.log('ServiceWorker registro fallido: ', err);
+                  });
+                });
+              }
+            `,
+          }}
+        />
         <header className={layoutStyles.header}>
           <div className="container">
             <div className={layoutStyles.headerTop}>

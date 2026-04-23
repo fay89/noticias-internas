@@ -124,3 +124,25 @@
   margin-top: 60px;
   font-size: 0.9rem;
 }
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .headerTop {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .date {
+    text-align: center;
+    width: 100%;
+  }
+  .logoImage {
+    height: 90px !important;
+  }
+  .newspaperTitle {
+    font-size: 2.2rem !important;
+  }
+  .actions {
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+}
