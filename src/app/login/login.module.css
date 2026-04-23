@@ -62,12 +62,43 @@
   border-radius: 4px;
   font-family: var(--font-sans);
   font-size: 1rem;
+  width: 100%;
+}
+
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.passwordToggle:hover {
+  color: var(--accent-red-main);
+}
+
+.passwordToggle svg {
+  width: 20px;
+  height: 20px;
 }
 
 .formGroup input:focus {
   outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  border-color: var(--accent-red-main);
+  box-shadow: 0 0 0 2px rgba(191, 18, 44, 0.1);
 }
 
 .loginForm button {

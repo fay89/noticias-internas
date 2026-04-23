@@ -179,8 +179,12 @@
     flex: unset;
   }
   .actions a {
-    padding: 6px 12px;
-    font-size: 0.8rem;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    background: var(--accent-red-main) !important;
+    color: white !important;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(191, 18, 44, 0.2);
   }
   .desktopText {
     display: none !important;
