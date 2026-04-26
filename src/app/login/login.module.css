@@ -66,40 +66,48 @@
 }
 
 .passwordWrapper {
-  position: relative;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  align-items: center;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .passwordWrapper input {
-  padding-right: 45px !important; /* Espacio para el botón del ojo */
+  border: none !important;
+  box-shadow: none !important;
+  padding: 10px 15px;
+  width: 100%;
 }
 
 .passwordToggle {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
   width: 40px;
   height: 40px;
   color: var(--text-secondary);
-  transition: color 0.3s ease;
-  z-index: 2;
+  transition: all 0.3s ease;
 }
 
 .passwordToggle:hover {
   color: var(--accent-red-main);
+  background-color: rgba(0,0,0,0.02);
 }
 
 .passwordToggle svg {
   width: 20px;
   height: 20px;
+}
+
+.passwordWrapper:focus-within {
+  border-color: var(--accent-red-main);
+  box-shadow: 0 0 0 2px rgba(191, 18, 44, 0.1);
 }
 
 .formGroup input:focus {
