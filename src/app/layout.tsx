@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Anton } from 'next/font/google';
 import './globals.css';
 import layoutStyles from './layout.module.css';
+import CookieBanner from '@/components/CookieBanner';
 
 const anton = Anton({ weight: '400', subsets: ['latin'] });
 
@@ -101,7 +102,6 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
-        
         <main className={layoutStyles.main}>
           {children}
         </main>
@@ -109,8 +109,14 @@ export default function RootLayout({
         <footer className={layoutStyles.footer}>
           <div className="container">
             <p>&copy; {new Date().getFullYear()} Eco del Propósito - Embajadores en Red</p>
+            <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'center', gap: '20px', fontSize: '0.8rem', opacity: 0.7 }}>
+              <a href="/legal/aviso-legal">Aviso Legal</a>
+              <a href="/legal/politica-privacidad">Privacidad</a>
+              <a href="/legal/politica-cookies">Cookies</a>
+            </div>
           </div>
         </footer>
+        <CookieBanner />
       </body>
     </html>
   );

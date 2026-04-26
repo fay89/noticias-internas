@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { AUTHORIZED_USERS } from '@/lib/authConfig';
 import styles from './admin.module.css';
 
 export default function AdminLayout({
@@ -18,12 +19,17 @@ export default function AdminLayout({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
+      if (currentUser && currentUser.email) {
+        if (AUTHORIZED_USERS.includes(currentUser.email)) {
+          setUser(currentUser);
+          setLoading(false);
+        } else {
+          // Usuario autenticado pero no autorizado
+          router.push('/unauthorized');
+        }
       } else {
         router.push('/login');
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
