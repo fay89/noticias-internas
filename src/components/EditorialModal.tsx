@@ -44,7 +44,7 @@ export default function EditorialModal() {
             
             <div className={styles.editorialHeader}>
               <span className={styles.editorialLabel}>Editorial de Lanzamiento</span>
-              <h2>Donde el Propósito encuentra su voz</h2>
+              <h2>Eco del Propósito</h2>
               <p className={styles.author}>De: El Equipo de Embajadores</p>
             </div>
 

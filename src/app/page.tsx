@@ -51,6 +51,7 @@ export default function Home() {
           
           <section id="latido" className={styles.section}>
             <div className={styles.sectionHeader}>
+              <span className={styles.brandLabel}>Eco del Propósito</span>
               <h2>El Latido del Propósito</h2>
             </div>
             

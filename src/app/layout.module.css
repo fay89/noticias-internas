@@ -164,15 +164,20 @@
     display: none !important;
   }
   .logoContainer {
-    flex: unset;
-    text-align: left;
+    flex: 1;
+    text-align: center;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
   .newspaperTitle {
-    font-size: 1.4rem !important;
+    font-size: 1.2rem !important;
     margin: 0 !important;
     white-space: nowrap;
+    letter-spacing: 0.5px;
+    color: var(--accent-red-main); /* Highlight in mobile app bar */
   }
   .actions {
     margin: 0 !important;
