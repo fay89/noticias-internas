@@ -1,3 +1,29 @@
+.appBranding {
+  text-align: center;
+  padding: 30px 0 10px 0;
+  display: none; /* Hidden on desktop by default */
+}
+
+.appTitle {
+  font-size: 3.5rem;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .appBranding {
+    display: block;
+  }
+  .appTitle {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+  }
+}
+
 .newspaperLayout {
   display: grid;
   grid-template-columns: 2.5fr 1fr;
@@ -22,15 +48,6 @@
   padding-bottom: 10px;
 }
 
-.brandLabel {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--accent-red-main);
-  font-weight: 800;
-  letter-spacing: 2px;
-  display: block;
-  margin-bottom: 5px;
-}
 
 .sectionHeader::after {
   content: '';

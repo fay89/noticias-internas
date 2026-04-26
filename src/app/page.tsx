@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { Anton } from 'next/font/google';
 import styles from './page.module.css';
 import EditorialModal from '@/components/EditorialModal';
 
@@ -14,6 +15,8 @@ interface Article {
   imageUrl?: string;
   createdAt: any;
 }
+
+const anton = Anton({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -45,13 +48,15 @@ export default function Home() {
 
   return (
     <div className="container">
+      <div className={styles.appBranding}>
+        <h1 className={`${styles.appTitle} ${anton.className}`}>Eco del Propósito</h1>
+      </div>
       <EditorialModal />
       <div className={styles.newspaperLayout}>
         <div className={styles.mainContent}>
           
           <section id="latido" className={styles.section}>
             <div className={styles.sectionHeader}>
-              <span className={styles.brandLabel}>Eco del Propósito</span>
               <h2>El Latido del Propósito</h2>
             </div>
             
