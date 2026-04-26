@@ -49,7 +49,7 @@ export default function EditorialModal() {
             </div>
 
             <div className={styles.editorialBody}>
-              <p>Bienvenidos a la primera edición de <strong>Enfoque Nublo</strong>.</p>
+              <p>Bienvenidos a la primera edición de <strong>Eco del Propósito</strong>.</p>
               
               <div className={styles.imageWrapper}>
                 <img 

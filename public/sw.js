@@ -1,4 +1,4 @@
-const CACHE_NAME = 'enfoque-nublo-v2'; // Cambiamos a v2 para forzar la actualización
+const CACHE_NAME = 'eco-proposito-v1';
 const urlsToCache = [
   '/',
   '/manifest.json',

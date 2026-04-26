@@ -53,7 +53,7 @@ export default function AdminLayout({
 
       <aside className={`${styles.adminSidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.adminLogo}>
-          <h2>Enfoque Nublo</h2>
+          <h2>Eco del Propósito</h2>
           <p>CMS Editorial</p>
         </div>
         <nav className={styles.adminNav}>

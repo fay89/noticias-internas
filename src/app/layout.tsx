@@ -6,13 +6,13 @@ import layoutStyles from './layout.module.css';
 const anton = Anton({ weight: '400', subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Enfoque Nublo - El Latido del Propósito',
+  title: 'Eco del Propósito - El Latido del Propósito',
   description: 'Periódico digital interno para embajadores y líderes.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Enfoque Nublo',
+    title: 'Eco del Propósito',
   },
 };
 
@@ -53,8 +53,8 @@ export default function RootLayout({
               <div className={layoutStyles.date}>{new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
               <a href="/" className={layoutStyles.logoContainer} style={{textDecoration: 'none'}}>
                 {/* Asegúrate de tener una imagen llamada logo.png en tu carpeta public/ */}
-                <img src="/logo.png" alt="Logo Enfoque Nublo" className={layoutStyles.logoImage} />
-                <h1 className={`${layoutStyles.newspaperTitle} ${anton.className}`}>Enfoque Nublo</h1>
+                <img src="/logo.png" alt="Logo Eco del Propósito" className={layoutStyles.logoImage} />
+                <h1 className={`${layoutStyles.newspaperTitle} ${anton.className}`}>Eco del Propósito</h1>
               </a>
               <div className={layoutStyles.actions}>
                 <a href="/login" className="btn-primary">Entrar</a>
@@ -108,7 +108,7 @@ export default function RootLayout({
 
         <footer className={layoutStyles.footer}>
           <div className="container">
-            <p>&copy; {new Date().getFullYear()} Enfoque Nublo - Embajadores en Red</p>
+            <p>&copy; {new Date().getFullYear()} Eco del Propósito - Embajadores en Red</p>
           </div>
         </footer>
       </body>
