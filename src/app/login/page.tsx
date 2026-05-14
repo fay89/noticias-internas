@@ -5,9 +5,9 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fire
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
+import { AUTHORIZED_USERS } from '@/lib/authConfig';
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,25 +20,40 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
+    const emailLower = email.trim().toLowerCase();
+
+    // Verificamos si el usuario está en la lista de permitidos
+    if (!AUTHORIZED_USERS.includes(emailLower)) {
+      setError('Este correo no está autorizado para acceder como autor.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-      }
-      // Redirigir al panel de administración tras un login/registro exitoso
+      // Intentamos iniciar sesión primero
+      await signInWithEmailAndPassword(auth, emailLower, password);
       router.push('/admin');
     } catch (err: any) {
-      if (err.code === 'auth/email-already-in-use') {
-        setError('Ese correo ya está registrado.');
-      } else if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
-        setError('Credenciales incorrectas.');
-      } else if (err.code === 'auth/weak-password') {
-        setError('La contraseña debe tener al menos 6 caracteres.');
+      // Si falla, verificamos si es porque no existe o es credencial inválida
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        // Intentamos crear la cuenta
+        try {
+          await createUserWithEmailAndPassword(auth, emailLower, password);
+          router.push('/admin');
+        } catch (createErr: any) {
+          if (createErr.code === 'auth/email-already-in-use') {
+            setError('Credenciales incorrectas. Si ya creaste tu cuenta, revisa la contraseña.');
+          } else if (createErr.code === 'auth/weak-password') {
+            setError('La contraseña debe tener al menos 6 caracteres.');
+          } else {
+            setError('Error al crear la cuenta. Intenta de nuevo.');
+            console.error(createErr);
+          }
+        }
       } else {
         setError('Error al procesar la solicitud.');
+        console.error(err);
       }
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -47,11 +62,9 @@ export default function LoginPage() {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
-        <h2>{isLogin ? 'Acceso para Autores' : 'Registrar Nuevo Autor'}</h2>
+        <h2>Acceso para Autores</h2>
         <p>
-          {isLogin 
-            ? 'Inicia sesión para redactar o gestionar noticias.' 
-            : 'Crea una cuenta para empezar a escribir en el periódico.'}
+          Introduce tu correo de autor y tu contraseña. Si es la primera vez que entras, se creará tu cuenta automáticamente con la contraseña que elijas.
         </p>
         
         {error && <div className={styles.errorMessage}>{error}</div>}
@@ -65,7 +78,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="tu@correo.com"
+              placeholder="tu@ecoproposito.com"
             />
           </div>
           <div className={styles.formGroup}>
@@ -93,29 +106,9 @@ export default function LoginPage() {
             </div>
           </div>
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Procesando...' : (isLogin ? 'Entrar al CMS' : 'Crear Cuenta')}
+            {loading ? 'Procesando...' : 'Entrar / Crear Cuenta'}
           </button>
         </form>
-
-        <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
-          <button 
-            type="button" 
-            onClick={() => {
-              setIsLogin(!isLogin);
-              setError('');
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--accent-blue)',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              fontWeight: '600'
-            }}
-          >
-            {isLogin ? '¿No tienes cuenta? Regístrate aquí' : '¿Ya tienes cuenta? Inicia sesión'}
-          </button>
-        </div>
       </div>
     </div>
   );
