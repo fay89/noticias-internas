@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Juegos.module.css';
 
 const DAILY_CRUCIGRAMAS = [
@@ -113,7 +113,6 @@ export default function Crucigrama() {
   const [dayIndex, setDayIndex] = useState(0);
 
   // Initialize strictly on client to avoid hydration mismatch
-  import { useEffect } from 'react';
   useEffect(() => {
     setDayIndex(Math.floor(Date.now() / 86400000) % DAILY_CRUCIGRAMAS.length);
   }, []);

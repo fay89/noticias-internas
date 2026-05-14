@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Juegos.module.css';
 
 const DAILY_BOARDS = [
@@ -45,7 +45,6 @@ export default function Sudoku() {
   const [solved, setSolved] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  import { useEffect } from 'react';
   useEffect(() => {
     const idx = Math.floor(Date.now() / 86400000) % DAILY_BOARDS.length;
     setDayIndex(idx);
