@@ -14,7 +14,7 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function EditorPage() {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('Latido del Propósito');
+  const [category, setCategory] = useState('El latido del propósito');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -84,12 +84,10 @@ export default function EditorPage() {
           <div className={styles.formGroup}>
             <label>Sección / Categoría</label>
             <select value={category} onChange={(e) => setCategory(e.target.value)} className={styles.select}>
-              <option value="La Noticia Inspiradora">La Noticia Inspiradora</option>
-              <option value="Embajador Destacado">Embajador Destacado</option>
-              <option value="Líder Invitado">Líder Invitado</option>
-              <option value="Cápsula de Liderazgo">Cápsula de Liderazgo</option>
-              <option value="Recomendado">Recomendado</option>
-              <option value="Tribuna de Opinión">Tribuna de Opinión</option>
+              <option value="El latido del propósito">El latido del propósito</option>
+              <option value="Rostros con sentido">Rostros con sentido</option>
+              <option value="El laboratorio">El laboratorio</option>
+              <option value="La tribuna de opinión">La tribuna de opinión</option>
             </select>
           </div>
           

@@ -41,10 +41,10 @@ export default function Home() {
   }
 
   // Filtrar artículos por categoría para las secciones
-  const mainArticle = articles.find(a => a.category === 'La Noticia Inspiradora') || articles[0];
-  const rostrosArticles = articles.filter(a => a.category === 'Embajador Destacado' || a.category === 'Líder Invitado').slice(0, 2);
-  const laboratorioArticles = articles.filter(a => a.category === 'Cápsula de Liderazgo' || a.category === 'Recomendado').slice(0, 3);
-  const tribunaArticles = articles.filter(a => a.category === 'Tribuna de Opinión').slice(0, 3);
+  const mainArticle = articles.find(a => a.category === 'El latido del propósito') || articles.find(a => a.category === 'La Noticia Inspiradora') || articles[0];
+  const rostrosArticles = articles.filter(a => a.category === 'Rostros con sentido' || a.category === 'Embajador Destacado' || a.category === 'Líder Invitado').slice(0, 2);
+  const laboratorioArticles = articles.filter(a => a.category === 'El laboratorio' || a.category === 'Cápsula de Liderazgo' || a.category === 'Recomendado').slice(0, 3);
+  const tribunaArticles = articles.filter(a => a.category === 'La tribuna de opinión' || a.category === 'Tribuna de Opinión').slice(0, 3);
 
   return (
     <div className="container">
@@ -85,7 +85,7 @@ export default function Home() {
               <h2>Rostros con Sentido</h2>
             </div>
             <div className={styles.grid2}>
-              {rostrosArticles.map(article => (
+              {rostrosArticles.map((article, index) => (
                 <article key={article.id} className={styles.cardArticle}>
                   {article.imageUrl ? (
                     <div className={styles.cardImagePlaceholder} style={{ backgroundImage: `url(${article.imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'top center' }}></div>
@@ -93,7 +93,7 @@ export default function Home() {
                     <div className={styles.cardImagePlaceholder}></div>
                   )}
                   <div className={styles.cardContent}>
-                    <span className={`${styles.categoryBadge} ${article.category === 'Líder Invitado' ? styles.bgEarth : styles.bgGreen}`}>{article.category}</span>
+                    <span className={`${styles.categoryBadge} ${index % 2 === 0 ? styles.bgGreen : styles.bgEarth}`}>{article.category}</span>
                     <h4>{article.title}</h4>
                     <a href={`/noticias/${article.id}`} className={styles.readMore}>Leer más</a>
                   </div>
