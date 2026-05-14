@@ -3,7 +3,17 @@
 import { useState, useEffect } from 'react';
 import styles from './Juegos.module.css';
 
-const DAILY_CRUCIGRAMAS = [
+interface CrucigramaData {
+  grid: string[][];
+  numbers: Record<string, number>;
+  words: { answer: string; cells: string[] }[];
+  clues: {
+    horizontales: { num: number; text: string }[];
+    verticales: { num: number; text: string }[];
+  };
+}
+
+const DAILY_CRUCIGRAMAS: CrucigramaData[] = [
   {
     grid: [
       ['H','O','T','E','L','*','*','*','*','*','*','*','*','*','*'],
