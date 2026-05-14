@@ -3,8 +3,20 @@
 import { useState, useEffect } from 'react';
 import styles from './Juegos.module.css';
 
-const WORDS_LIST = ['EMPATIA', 'SERVICIO', 'EQUIPO', 'LIDER', 'PROPOSITO', 'CALIDAD', 'SONRISA', 'ACOGIDA', 'EXCELENCIA', 'VALOR'];
+const DAILY_WORDS_LISTS = [
+  ['EMPATIA', 'SERVICIO', 'EQUIPO', 'LIDER', 'PROPOSITO', 'CALIDAD', 'SONRISA', 'ACOGIDA', 'EXCELENCIA', 'VALOR'],
+  ['INNOVACION', 'FUTURO', 'VISION', 'IMPACTO', 'TRANSFORMAR', 'MOTIVACION', 'CRECER', 'METAS', 'LOGROS', 'AVANCE'],
+  ['COMUNIDAD', 'RESPETO', 'CONFIANZA', 'SINCERIDAD', 'HONESTIDAD', 'APOYO', 'UNIDAD', 'FUERZA', 'INSPIRAR', 'GUIAR'],
+  ['TALENTO', 'PASION', 'ENTREGA', 'COMPROMISO', 'ESFUERZO', 'DEDICACION', 'ACCION', 'CAMBIO', 'EJEMPLO', 'VALENTIA']
+];
 const SIZE = 14;
+
+function seededRandom(seed: number) {
+  return function() {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+}
 
 interface WordCoord {
   word: string;
@@ -12,7 +24,8 @@ interface WordCoord {
   end: [number, number];
 }
 
-function generateSopa(wordsList: string[], size: number) {
+function generateSopa(wordsList: string[], size: number, daySeed: number) {
+  const random = seededRandom(daySeed);
   const grid = Array(size).fill(null).map(() => Array(size).fill(''));
   const wordCoords: WordCoord[] = [];
   const dirs = [
@@ -24,9 +37,9 @@ function generateSopa(wordsList: string[], size: number) {
     let attempts = 0;
     while (!placed && attempts < 500) {
       attempts++;
-      const dir = dirs[Math.floor(Math.random() * dirs.length)];
-      const startR = Math.floor(Math.random() * size);
-      const startC = Math.floor(Math.random() * size);
+      const dir = dirs[Math.floor(random() * dirs.length)];
+      const startR = Math.floor(random() * size);
+      const startC = Math.floor(random() * size);
       
       const endR = startR + dir[0] * (word.length - 1);
       const endC = startC + dir[1] * (word.length - 1);
@@ -59,7 +72,7 @@ function generateSopa(wordsList: string[], size: number) {
   for (let r = 0; r < size; r++) {
     for (let c = 0; c < size; c++) {
       if (grid[r][c] === '') {
-        grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+        grid[r][c] = alphabet[Math.floor(random() * alphabet.length)];
       }
     }
   }
@@ -74,8 +87,13 @@ export default function SopaDeLetras() {
   const [foundWords, setFoundWords] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
 
+  const [currentWordsList, setCurrentWordsList] = useState<string[]>([]);
+
   useEffect(() => {
-    const { grid: newGrid, wordCoords } = generateSopa(WORDS_LIST, SIZE);
+    const dayIndex = Math.floor(Date.now() / 86400000);
+    const dayWords = DAILY_WORDS_LISTS[dayIndex % DAILY_WORDS_LISTS.length];
+    setCurrentWordsList(dayWords);
+    const { grid: newGrid, wordCoords } = generateSopa(dayWords, SIZE, dayIndex);
     setGrid(newGrid);
     setWords(wordCoords);
   }, []);
@@ -193,13 +211,13 @@ export default function SopaDeLetras() {
       </div>
 
       <div className={styles.wordList}>
-        {WORDS_LIST.map(w => (
+        {currentWordsList.map(w => (
           <span key={w} className={`${styles.wordItem} ${foundWords.includes(w) ? styles.wordFound : ''}`}>
             {w}
           </span>
         ))}
       </div>
-      {foundWords.length === WORDS_LIST.length && (
+      {foundWords.length > 0 && foundWords.length === currentWordsList.length && (
         <div className={styles.successMessage}>¡Felicidades! Has encontrado todas las palabras en diagonal, vertical y horizontal.</div>
       )}
     </div>

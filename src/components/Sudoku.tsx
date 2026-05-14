@@ -3,24 +3,56 @@
 import { useState } from 'react';
 import styles from './Juegos.module.css';
 
-const INITIAL_BOARD = [
-  [5, 3, 0, 0, 7, 0, 9, 1, 2],
-  [6, 0, 2, 1, 9, 5, 0, 4, 8],
-  [0, 9, 8, 0, 4, 0, 5, 6, 0],
-  [8, 0, 9, 0, 6, 1, 4, 0, 3],
-  [4, 2, 0, 8, 0, 3, 0, 9, 1],
-  [7, 0, 3, 9, 2, 0, 8, 0, 6],
-  [0, 6, 1, 0, 3, 0, 2, 8, 0],
-  [2, 8, 0, 4, 1, 9, 0, 0, 5],
-  [3, 4, 5, 0, 8, 0, 0, 7, 9]
+const DAILY_BOARDS = [
+  [
+    [5, 3, 0, 0, 7, 0, 9, 1, 2],
+    [6, 0, 2, 1, 9, 5, 0, 4, 8],
+    [0, 9, 8, 0, 4, 0, 5, 6, 0],
+    [8, 0, 9, 0, 6, 1, 4, 0, 3],
+    [4, 2, 0, 8, 0, 3, 0, 9, 1],
+    [7, 0, 3, 9, 2, 0, 8, 0, 6],
+    [0, 6, 1, 0, 3, 0, 2, 8, 0],
+    [2, 8, 0, 4, 1, 9, 0, 0, 5],
+    [3, 4, 5, 0, 8, 0, 0, 7, 9]
+  ],
+  [
+    [0, 4, 0, 0, 0, 0, 1, 7, 9],
+    [0, 0, 2, 0, 0, 8, 0, 5, 4],
+    [0, 0, 6, 0, 0, 5, 0, 0, 8],
+    [0, 8, 0, 0, 7, 0, 9, 1, 0],
+    [0, 5, 0, 0, 9, 0, 0, 3, 0],
+    [0, 1, 9, 0, 6, 0, 0, 4, 0],
+    [3, 0, 0, 4, 0, 0, 7, 0, 0],
+    [5, 7, 0, 1, 0, 0, 2, 0, 0],
+    [9, 2, 8, 0, 0, 0, 0, 6, 0]
+  ],
+  [
+    [8, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 6, 0, 0, 0, 0, 0],
+    [0, 7, 0, 0, 9, 0, 2, 0, 0],
+    [0, 5, 0, 0, 0, 7, 0, 0, 0],
+    [0, 0, 0, 0, 4, 5, 7, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 3, 0],
+    [0, 0, 1, 0, 0, 0, 0, 6, 8],
+    [0, 0, 8, 5, 0, 0, 0, 1, 0],
+    [0, 9, 0, 0, 0, 0, 4, 0, 0]
+  ]
 ];
 
 export default function Sudoku() {
-  const [board, setBoard] = useState<number[][]>(() => 
-    INITIAL_BOARD.map(row => [...row])
-  );
+  const [dayIndex, setDayIndex] = useState(0);
+  const [board, setBoard] = useState<number[][]>(() => DAILY_BOARDS[0].map(row => [...row]));
   const [solved, setSolved] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  import { useEffect } from 'react';
+  useEffect(() => {
+    const idx = Math.floor(Date.now() / 86400000) % DAILY_BOARDS.length;
+    setDayIndex(idx);
+    setBoard(DAILY_BOARDS[idx].map(row => [...row]));
+  }, []);
+
+  const INITIAL_BOARD = DAILY_BOARDS[dayIndex];
 
   const handleChange = (r: number, c: number, val: string) => {
     if (INITIAL_BOARD[r][c] !== 0) return; // Cannot edit fixed cells
