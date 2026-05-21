@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
@@ -24,6 +24,56 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const router = useRouter();
+  const quillRef = useRef<any>(null);
+
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files ? input.files[0] : null;
+      if (!file) return;
+
+      try {
+        const storageRef = ref(storage, `images/content/${Date.now()}_${file.name}`);
+        const uploadTask = await uploadBytesResumable(storageRef, file);
+        const downloadURL = await getDownloadURL(uploadTask.ref);
+
+        if (quillRef.current) {
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection(true);
+          quill.insertEmbed(range.index, 'image', downloadURL);
+        }
+      } catch (error) {
+        console.error('Error uploading image', error);
+        alert('Error al subir la imagen insertada.');
+      }
+    };
+  };
+
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        ['link', 'image', 'video'],
+        ['clean']
+      ],
+      handlers: {
+        image: imageHandler
+      }
+    }
+  }), []);
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video'
+  ];
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -198,9 +248,12 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
           <label>Cuerpo de la Noticia (Arrastra imágenes o formatea el texto)</label>
           <div className={styles.quillContainer}>
             <ReactQuill 
+              ref={quillRef}
               theme="snow" 
               value={content} 
               onChange={setContent} 
+              modules={modules}
+              formats={formats}
               style={{ height: '300px', marginBottom: '50px' }}
             />
           </div>
