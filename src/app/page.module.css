@@ -199,6 +199,12 @@
   border-color: rgba(191, 18, 44, 0.2);
 }
 
+.dynamicImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .cardImagePlaceholder {
   width: 100%;
   aspect-ratio: 16/9;

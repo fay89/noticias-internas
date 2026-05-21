@@ -90,7 +90,7 @@ export default function Home() {
               {rostrosArticles.map((article, index) => (
                 <article key={article.id} className={styles.cardArticle}>
                   {article.imageUrl ? (
-                    <div className={styles.cardImagePlaceholder} style={{ backgroundImage: `url(${article.imageUrl})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: '#f8fafc' }}></div>
+                    <img src={article.imageUrl} alt={article.title} className={styles.dynamicImage} />
                   ) : (
                     <div className={styles.cardImagePlaceholder}></div>
                   )}
