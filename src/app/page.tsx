@@ -14,6 +14,8 @@ interface Article {
   content: string;
   imageUrl?: string;
   createdAt: any;
+  authorName?: string;
+  authorRole?: string;
 }
 
 const anton = Anton({ weight: '400', subsets: ['latin'] });
@@ -124,7 +126,9 @@ export default function Home() {
             {tribunaArticles.map(article => (
               <div key={article.id} className={styles.opinionItem}>
                 <h5><a href={`/noticias/${article.id}`}>{article.title}</a></h5>
-                <p className={styles.excerpt}>Por un Embajador</p>
+                <p className={styles.excerpt}>
+                  Por {article.authorName ? `${article.authorName} - ` : 'un '}{article.authorRole || 'Embajador'}
+                </p>
               </div>
             ))}
             {tribunaArticles.length === 0 && <p>No hay opiniones recientes.</p>}

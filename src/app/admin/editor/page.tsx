@@ -16,6 +16,8 @@ export default function EditorPage() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('El latido del propósito');
   const [subCategory, setSubCategory] = useState('Laboratorio');
+  const [authorName, setAuthorName] = useState('');
+  const [authorRole, setAuthorRole] = useState('Embajador');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -46,14 +48,22 @@ export default function EditorPage() {
       const finalCategory = category === 'Match point' ? subCategory : category;
 
       // Guardamos la noticia en Firestore
-      await addDoc(collection(db, 'articles'), {
+      const articleData: any = {
         title,
         category: finalCategory,
         content,
         imageUrl,
         createdAt: serverTimestamp(),
         status: 'published'
-      });
+      };
+
+      // Añadimos datos de autor solo si es Tribuna de opinión
+      if (category === 'La tribuna de opinión') {
+        articleData.authorName = authorName;
+        articleData.authorRole = authorRole;
+      }
+
+      await addDoc(collection(db, 'articles'), articleData);
 
       alert('Noticia publicada con éxito');
       router.push('/admin');
@@ -104,6 +114,28 @@ export default function EditorPage() {
                 <option value="La huella">La huella</option>
               </select>
             </div>
+          )}
+
+          {category === 'La tribuna de opinión' && (
+            <>
+              <div className={styles.formGroup}>
+                <label>Nombre del Autor</label>
+                <input 
+                  type="text" 
+                  value={authorName} 
+                  onChange={(e) => setAuthorName(e.target.value)} 
+                  placeholder="Ej: María García"
+                  className={styles.inputTitle}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label>Rol del Autor</label>
+                <select value={authorRole} onChange={(e) => setAuthorRole(e.target.value)} className={styles.select}>
+                  <option value="Embajador">Embajador</option>
+                  <option value="Líder por propósito">Líder por propósito</option>
+                </select>
+              </div>
+            </>
           )}
           
           <div className={styles.formGroup}>
