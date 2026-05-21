@@ -115,9 +115,11 @@ export default function EditorPage() {
         status: 'published'
       };
 
-      // Añadimos datos de autor solo si es Tribuna de opinión
+      // Añadimos datos de autor/rol según la categoría
       if (category === 'La tribuna de opinión') {
         articleData.authorName = authorName;
+        articleData.authorRole = authorRole;
+      } else if (category === 'Rostros con sentido') {
         articleData.authorRole = authorRole;
       }
 
@@ -174,23 +176,26 @@ export default function EditorPage() {
             </div>
           )}
 
-          {category === 'La tribuna de opinión' && (
+          {(category === 'La tribuna de opinión' || category === 'Rostros con sentido') && (
             <>
+              {category === 'La tribuna de opinión' && (
+                <div className={styles.formGroup}>
+                  <label>Nombre del Autor</label>
+                  <input 
+                    type="text" 
+                    value={authorName} 
+                    onChange={(e) => setAuthorName(e.target.value)} 
+                    placeholder="Ej: María García"
+                    className={styles.inputTitle}
+                  />
+                </div>
+              )}
               <div className={styles.formGroup}>
-                <label>Nombre del Autor</label>
-                <input 
-                  type="text" 
-                  value={authorName} 
-                  onChange={(e) => setAuthorName(e.target.value)} 
-                  placeholder="Ej: María García"
-                  className={styles.inputTitle}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Rol del Autor</label>
+                <label>{category === 'Rostros con sentido' ? 'Perfil del Entrevistado' : 'Rol del Autor'}</label>
                 <select value={authorRole} onChange={(e) => setAuthorRole(e.target.value)} className={styles.select}>
                   <option value="Embajador">Embajador</option>
-                  <option value="Líder por propósito">Líder por propósito</option>
+                  <option value="Embajadora">Embajadora</option>
+                  <option value="Líder propósito">Líder propósito</option>
                 </select>
               </div>
             </>

@@ -95,8 +95,15 @@ export default function Home() {
                     <div className={styles.cardImagePlaceholder}></div>
                   )}
                   <div className={styles.cardContent}>
-                    <span className={`${styles.categoryBadge} ${index % 2 === 0 ? styles.bgGreen : styles.bgEarth}`}>{article.category}</span>
-                    <h4>{article.title}</h4>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                      <span className={`${styles.categoryBadge} ${index % 2 === 0 ? styles.bgGreen : styles.bgEarth}`}>{article.category}</span>
+                      {article.authorRole && (
+                        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {article.authorRole}
+                        </span>
+                      )}
+                    </div>
+                    <h4 style={{ marginTop: '5px' }}>{article.title}</h4>
                     <a href={`/noticias/${article.id}`} className={styles.readMore}>Leer más</a>
                   </div>
                 </article>

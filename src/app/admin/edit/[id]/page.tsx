@@ -154,12 +154,18 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
         updatedAt: serverTimestamp(),
       };
 
-      // Manejamos datos de autor si es Tribuna de opinión
+      // Manejamos datos de autor si es Tribuna de opinión o Rostros con sentido
       if (category === 'La tribuna de opinión') {
         articleData.authorName = authorName;
         articleData.authorRole = authorRole;
+      } else if (category === 'Rostros con sentido') {
+        articleData.authorRole = authorRole;
+        articleData.authorName = '';
+      } else {
+        articleData.authorName = '';
+        articleData.authorRole = '';
       }
-
+      
       await updateDoc(doc(db, 'articles', params.id), articleData);
 
       alert('Noticia actualizada con éxito');
@@ -217,23 +223,26 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
             </div>
           )}
 
-          {category === 'La tribuna de opinión' && (
+          {(category === 'La tribuna de opinión' || category === 'Rostros con sentido') && (
             <>
+              {category === 'La tribuna de opinión' && (
+                <div className={styles.formGroup}>
+                  <label>Nombre del Autor</label>
+                  <input 
+                    type="text" 
+                    value={authorName} 
+                    onChange={(e) => setAuthorName(e.target.value)} 
+                    placeholder="Ej: María García"
+                    className={styles.inputTitle}
+                  />
+                </div>
+              )}
               <div className={styles.formGroup}>
-                <label>Nombre del Autor</label>
-                <input 
-                  type="text" 
-                  value={authorName} 
-                  onChange={(e) => setAuthorName(e.target.value)} 
-                  placeholder="Ej: María García"
-                  className={styles.inputTitle}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Rol del Autor</label>
+                <label>{category === 'Rostros con sentido' ? 'Perfil del Entrevistado' : 'Rol del Autor'}</label>
                 <select value={authorRole} onChange={(e) => setAuthorRole(e.target.value)} className={styles.select}>
                   <option value="Embajador">Embajador</option>
-                  <option value="Líder por propósito">Líder por propósito</option>
+                  <option value="Embajadora">Embajadora</option>
+                  <option value="Líder propósito">Líder propósito</option>
                 </select>
               </div>
             </>
