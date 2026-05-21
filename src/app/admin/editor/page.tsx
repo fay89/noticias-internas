@@ -9,8 +9,16 @@ import { db, storage } from '@/lib/firebase';
 import styles from './editor.module.css';
 import 'react-quill/dist/quill.snow.css';
 
-// Importación dinámica para evitar errores de SSR con Quill
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+// Importación dinámica para evitar errores de SSR con Quill y permitir Refs
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import('react-quill');
+    return function Component({ forwardedRef, ...props }: any) {
+      return <RQ ref={forwardedRef} {...props} />;
+    };
+  },
+  { ssr: false }
+);
 
 export default function EditorPage() {
   const [title, setTitle] = useState('');
@@ -200,7 +208,7 @@ export default function EditorPage() {
           <label>Cuerpo de la Noticia (Arrastra imágenes o formatea el texto)</label>
           <div className={styles.quillContainer}>
             <ReactQuill 
-              ref={quillRef}
+              forwardedRef={quillRef}
               theme="snow" 
               value={content} 
               onChange={setContent} 
