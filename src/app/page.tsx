@@ -43,7 +43,7 @@ export default function Home() {
   // Filtrar artículos por categoría para las secciones
   const mainArticle = articles.find(a => a.category === 'El latido del propósito') || articles.find(a => a.category === 'La Noticia Inspiradora') || articles[0];
   const rostrosArticles = articles.filter(a => a.category === 'Rostros con sentido' || a.category === 'Embajador Destacado' || a.category === 'Líder Invitado').slice(0, 2);
-  const laboratorioArticles = articles.filter(a => a.category === 'El laboratorio' || a.category === 'Cápsula de Liderazgo' || a.category === 'Recomendado').slice(0, 3);
+  const matchPointArticles = articles.filter(a => a.category === 'Match point' || a.category === 'Laboratorio' || a.category === 'Cápsula de liderazgo' || a.category === 'La huella' || a.category === 'El laboratorio' || a.category === 'Cápsula de Liderazgo' || a.category === 'Recomendado').slice(0, 3);
   const tribunaArticles = articles.filter(a => a.category === 'La tribuna de opinión' || a.category === 'Tribuna de Opinión').slice(0, 3);
 
   return (
@@ -106,16 +106,16 @@ export default function Home() {
 
         <aside className={styles.sidebar}>
           
-          <div id="laboratorio" className={styles.sidebarWidget}>
-            <h3 className={styles.widgetTitle}>El Laboratorio</h3>
+          <div id="match-point" className={styles.sidebarWidget}>
+            <h3 className={styles.widgetTitle}>Match point</h3>
             <ul className={styles.widgetList}>
-              {laboratorioArticles.map(article => (
+              {matchPointArticles.map(article => (
                 <li key={article.id}>
                   <span className={styles.widgetLabel}>{article.category}</span>
                   <a href={`/noticias/${article.id}`}>{article.title}</a>
                 </li>
               ))}
-              {laboratorioArticles.length === 0 && <p>Sin cápsulas recientes.</p>}
+              {matchPointArticles.length === 0 && <p>Sin artículos recientes.</p>}
             </ul>
           </div>
 

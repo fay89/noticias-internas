@@ -78,10 +78,10 @@ export default function RootLayout({
                   </a>
                 </li>
                 <li>
-                  <a href="/#laboratorio">
+                  <a href="/#match-point">
                     <svg className={layoutStyles.navIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <span className={layoutStyles.desktopText}>El Laboratorio</span>
-                    <span className={layoutStyles.mobileText}>Aprender</span>
+                    <span className={layoutStyles.desktopText}>Match point</span>
+                    <span className={layoutStyles.mobileText}>Match point</span>
                   </a>
                 </li>
                 <li>

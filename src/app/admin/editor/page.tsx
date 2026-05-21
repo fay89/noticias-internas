@@ -15,6 +15,7 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 export default function EditorPage() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('El latido del propósito');
+  const [subCategory, setSubCategory] = useState('Laboratorio');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -41,10 +42,13 @@ export default function EditorPage() {
         imageUrl = await getDownloadURL(uploadTask.ref);
       }
 
+      // Si la categoría principal es Match point, guardamos la subcategoría en su lugar
+      const finalCategory = category === 'Match point' ? subCategory : category;
+
       // Guardamos la noticia en Firestore
       await addDoc(collection(db, 'articles'), {
         title,
-        category,
+        category: finalCategory,
         content,
         imageUrl,
         createdAt: serverTimestamp(),
@@ -82,14 +86,25 @@ export default function EditorPage() {
 
         <div className={styles.grid2}>
           <div className={styles.formGroup}>
-            <label>Sección / Categoría</label>
+            <label>Sección Principal</label>
             <select value={category} onChange={(e) => setCategory(e.target.value)} className={styles.select}>
               <option value="El latido del propósito">El latido del propósito</option>
               <option value="Rostros con sentido">Rostros con sentido</option>
-              <option value="El laboratorio">El laboratorio</option>
+              <option value="Match point">Match point</option>
               <option value="La tribuna de opinión">La tribuna de opinión</option>
             </select>
           </div>
+
+          {category === 'Match point' && (
+            <div className={styles.formGroup}>
+              <label>Subsección (Match point)</label>
+              <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)} className={styles.select}>
+                <option value="Laboratorio">Laboratorio</option>
+                <option value="Cápsula de liderazgo">Cápsula de liderazgo</option>
+                <option value="La huella">La huella</option>
+              </select>
+            </div>
+          )}
           
           <div className={styles.formGroup}>
             <label>Imagen de Portada (Opcional)</label>
