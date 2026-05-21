@@ -1,0 +1,220 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '@/lib/firebase';
+import styles from '../../editor/editor.module.css';
+import 'react-quill/dist/quill.snow.css';
+
+// Importación dinámica para evitar errores de SSR con Quill
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
+export default function EditArticlePage({ params }: { params: { id: string } }) {
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('El latido del propósito');
+  const [subCategory, setSubCategory] = useState('Laboratorio');
+  const [authorName, setAuthorName] = useState('');
+  const [authorRole, setAuthorRole] = useState('Embajador');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState<File | null>(null);
+  const [currentImageUrl, setCurrentImageUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const docRef = doc(db, 'articles', params.id);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setTitle(data.title || '');
+          setContent(data.content || '');
+          setCurrentImageUrl(data.imageUrl || '');
+          
+          if (data.authorName) setAuthorName(data.authorName);
+          if (data.authorRole) setAuthorRole(data.authorRole);
+          
+          // Lógica para subcategorías
+          if (['Laboratorio', 'Cápsula de liderazgo', 'La huella'].includes(data.category)) {
+            setCategory('Match point');
+            setSubCategory(data.category);
+          } else {
+            setCategory(data.category || 'El latido del propósito');
+          }
+        } else {
+          alert('Noticia no encontrada');
+          router.push('/admin');
+        }
+      } catch (error) {
+        console.error('Error fetching article:', error);
+      } finally {
+        setFetching(false);
+      }
+    };
+
+    if (params.id) {
+      fetchArticle();
+    }
+  }, [params.id, router]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handlePublish = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !content) return alert('Por favor completa el título y el contenido.');
+    
+    setLoading(true);
+    try {
+      let finalImageUrl = currentImageUrl;
+      
+      // Si hay una nueva imagen, la subimos a Firebase Storage primero
+      if (image) {
+        const storageRef = ref(storage, `images/${Date.now()}_${image.name}`);
+        const uploadTask = await uploadBytesResumable(storageRef, image);
+        finalImageUrl = await getDownloadURL(uploadTask.ref);
+      }
+
+      // Si la categoría principal es Match point, guardamos la subcategoría en su lugar
+      const finalCategory = category === 'Match point' ? subCategory : category;
+
+      // Actualizamos la noticia en Firestore
+      const articleData: any = {
+        title,
+        category: finalCategory,
+        content,
+        imageUrl: finalImageUrl,
+        updatedAt: serverTimestamp(),
+      };
+
+      // Manejamos datos de autor si es Tribuna de opinión
+      if (category === 'La tribuna de opinión') {
+        articleData.authorName = authorName;
+        articleData.authorRole = authorRole;
+      }
+
+      await updateDoc(doc(db, 'articles', params.id), articleData);
+
+      alert('Noticia actualizada con éxito');
+      router.push('/admin');
+    } catch (error) {
+      console.error('Error al actualizar:', error);
+      alert('Hubo un error al actualizar la noticia.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (fetching) {
+    return <div style={{ padding: '40px', textAlign: 'center' }}>Cargando datos de la noticia...</div>;
+  }
+
+  return (
+    <div className={styles.editorContainer}>
+      <div className={styles.header}>
+        <h1>Editar Noticia</h1>
+      </div>
+
+      <form onSubmit={handlePublish} className={styles.form}>
+        <div className={styles.formGroup}>
+          <label>Título de la Noticia</label>
+          <input 
+            type="text" 
+            value={title} 
+            onChange={(e) => setTitle(e.target.value)} 
+            placeholder="Ej: Nuevo acuerdo global de sostenibilidad"
+            required
+            className={styles.inputTitle}
+          />
+        </div>
+
+        <div className={styles.grid2}>
+          <div className={styles.formGroup}>
+            <label>Sección Principal</label>
+            <select value={category} onChange={(e) => setCategory(e.target.value)} className={styles.select}>
+              <option value="El latido del propósito">El latido del propósito</option>
+              <option value="Rostros con sentido">Rostros con sentido</option>
+              <option value="Match point">Match point</option>
+              <option value="La tribuna de opinión">La tribuna de opinión</option>
+            </select>
+          </div>
+
+          {category === 'Match point' && (
+            <div className={styles.formGroup}>
+              <label>Subsección (Match point)</label>
+              <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)} className={styles.select}>
+                <option value="Laboratorio">Laboratorio</option>
+                <option value="Cápsula de liderazgo">Cápsula de liderazgo</option>
+                <option value="La huella">La huella</option>
+              </select>
+            </div>
+          )}
+
+          {category === 'La tribuna de opinión' && (
+            <>
+              <div className={styles.formGroup}>
+                <label>Nombre del Autor</label>
+                <input 
+                  type="text" 
+                  value={authorName} 
+                  onChange={(e) => setAuthorName(e.target.value)} 
+                  placeholder="Ej: María García"
+                  className={styles.inputTitle}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label>Rol del Autor</label>
+                <select value={authorRole} onChange={(e) => setAuthorRole(e.target.value)} className={styles.select}>
+                  <option value="Embajador">Embajador</option>
+                  <option value="Líder por propósito">Líder por propósito</option>
+                </select>
+              </div>
+            </>
+          )}
+          
+          <div className={styles.formGroup}>
+            <label>Imagen de Portada (Dejar en blanco para mantener la actual)</label>
+            {currentImageUrl && (
+              <div style={{ marginBottom: '10px', fontSize: '0.85rem', color: '#64748b' }}>
+                Imagen actual subida. Selecciona otra si deseas reemplazarla.
+              </div>
+            )}
+            <div className={styles.fileUpload}>
+              <input type="file" accept="image/*" onChange={handleImageChange} />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Cuerpo de la Noticia (Arrastra imágenes o formatea el texto)</label>
+          <div className={styles.quillContainer}>
+            <ReactQuill 
+              theme="snow" 
+              value={content} 
+              onChange={setContent} 
+              style={{ height: '300px', marginBottom: '50px' }}
+            />
+          </div>
+        </div>
+
+        <div className={styles.actions}>
+          <button type="button" className="btn-primary" style={{backgroundColor: '#64748b'}} onClick={() => router.back()}>
+            Cancelar
+          </button>
+          <button type="submit" className="btn-primary btn-green" disabled={loading}>
+            {loading ? 'Guardando...' : 'Guardar Cambios'}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
