@@ -5,14 +5,24 @@ import styles from './EditorialModal.module.css';
 
 export default function EditorialModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const openEditorial = () => {
     setIsOpen(true);
     if (audioRef.current) {
-      audioRef.current.volume = 0.2; // Bajar volumen al 20%
+      audioRef.current.volume = 0.05; // Bajar volumen al 5%
+      audioRef.current.muted = isMuted;
       // Intentar reproducir la música
       audioRef.current.play().catch(e => console.log('Autoplay bloqueado:', e));
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+      setIsMuted(audioRef.current.muted);
     }
   };
 
@@ -38,7 +48,14 @@ export default function EditorialModal() {
       {isOpen && (
         <div className={styles.modalOverlay} onClick={closeEditorial}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={closeEditorial}>
+            <button className={styles.muteButton} onClick={toggleMute} title={isMuted ? "Activar sonido" : "Silenciar"}>
+              {isMuted ? (
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              )}
+            </button>
+            <button className={styles.closeButton} onClick={closeEditorial} title="Cerrar">
               &times;
             </button>
             
