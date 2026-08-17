@@ -1,12 +1,39 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import styles from './EditorialModal.module.css';
 
 export default function EditorialModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [editorialData, setEditorialData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const fetchEditorial = async () => {
+      try {
+        const q = query(
+          collection(db, 'articles'),
+          where('category', '==', 'Editorial'),
+          where('status', '==', 'published'),
+          orderBy('createdAt', 'desc'),
+          limit(1)
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          setEditorialData(snapshot.docs[0].data());
+        }
+      } catch (error) {
+        console.error('Error fetching editorial:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEditorial();
+  }, []);
 
   const openEditorial = () => {
     setIsOpen(true);
@@ -61,53 +88,70 @@ export default function EditorialModal() {
             
             <div className={styles.editorialHeader}>
               <span className={styles.editorialLabel}>Editorial de Lanzamiento</span>
-              <h2>Eco del Propósito</h2>
-              <p className={styles.author}>De: El Equipo de Embajadores</p>
+              <h2>{editorialData ? editorialData.title : "Eco del Propósito"}</h2>
+              <p className={styles.author}>De: {editorialData?.authorName || "El Equipo de Embajadores"}</p>
             </div>
 
             <div className={styles.editorialBody}>
-              <p>Bienvenidos a la primera edición de <strong>Eco del Propósito</strong>.</p>
-              
-              <div className={styles.imageWrapper}>
-                <img 
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" 
-                  alt="Equipo trabajando con propósito" 
-                  className={styles.editorialImage}
-                />
-              </div>
+              {editorialData ? (
+                <>
+                  {editorialData.imageUrl && (
+                    <div className={styles.imageWrapper} style={{ marginBottom: '30px' }}>
+                      <img 
+                        src={editorialData.imageUrl} 
+                        alt={editorialData.title} 
+                        className={styles.editorialImage}
+                      />
+                    </div>
+                  )}
+                  <div dangerouslySetInnerHTML={{ __html: editorialData.content }} />
+                </>
+              ) : (
+                <>
+                  <p>Bienvenidos a la primera edición de <strong>Eco del Propósito</strong>.</p>
+                  
+                  <div className={styles.imageWrapper}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" 
+                      alt="Equipo trabajando con propósito" 
+                      className={styles.editorialImage}
+                    />
+                  </div>
 
-              <p>
-                A menudo se piensa que el liderazgo es una posición en un organigrama o un título en una tarjeta de
-                presentación. Sin embargo, quienes formamos parte de este programa entendemos una verdad más
-                profunda: el Propósito es, ante todo, una decisión de servicio. Es la voluntad de alinear nuestros
-                talentos personales con las necesidades del mundo.
-              </p>
+                  <p>
+                    A menudo se piensa que el liderazgo es una posición en un organigrama o un título en una tarjeta de
+                    presentación. Sin embargo, quienes formamos parte de este programa entendemos una verdad más
+                    profunda: el Propósito es, ante todo, una decisión de servicio. Es la voluntad de alinear nuestros
+                    talentos personales con las necesidades del mundo.
+                  </p>
 
-              <p>
-                Este periódico nace no solo para informar, sino para sostener el espejo frente a nosotros. Queremos que
-                estas páginas sean un espacio para reconocer el impacto que estamos logrando entre todos, pero
-                también para reflexionar sobre los desafíos que enfrentamos cuando decidimos compartir la visión de
-                nuestros roles desde la coherencia y el propósito.
-              </p>
+                  <p>
+                    Este periódico nace no solo para informar, sino para sostener el espejo frente a nosotros. Queremos que
+                    estas páginas sean un espacio para reconocer el impacto que estamos logrando entre todos, pero
+                    también para reflexionar sobre los desafíos que enfrentamos cuando decidimos compartir la visión de
+                    nuestros roles desde la coherencia y el propósito.
+                  </p>
 
-              <p>
-                ¿Por qué ahora? Porque el mundo no necesita más jefes; necesita referentes. Necesita personas que,
-                más allá de los resultados inmediatos, se pregunten: <em>¿Para qué hago lo que hago?</em>.
-              </p>
+                  <p>
+                    ¿Por qué ahora? Porque el mundo no necesita más jefes; necesita referentes. Necesita personas que,
+                    más allá de los resultados inmediatos, se pregunten: <em>¿Para qué hago lo que hago?</em>.
+                  </p>
 
-              <p>
-                En cada sección encontrarán historias de embajadores que ya están moviendo la aguja, herramientas
-                para fortalecer nuestra resiliencia y espacios de opinión donde todas las voces cuentan. Este no es un
-                boletín de la empresa; es el latido de nuestra comunidad, el Hotel Cristina, que cree firmemente que el
-                Propósito aporta motivación, satisfacción y legado a nuestras vidas.
-              </p>
+                  <p>
+                    En cada sección encontrarán historias de embajadores que ya están moviendo la aguja, herramientas
+                    para fortalecer nuestra resiliencia y espacios de opinión donde todas las voces cuentan. Este no es un
+                    boletín de la empresa; es el latido de nuestra comunidad, el Hotel Cristina, que cree firmemente que el
+                    Propósito aporta motivación, satisfacción y legado a nuestras vidas.
+                  </p>
 
-              <p>
-                Les invitamos a leer, a compartir y, sobre todo, a participar. Que estas letras sean la mecha que
-                encienda la hoguera de las nuevas acciones.
-              </p>
+                  <p>
+                    Les invitamos a leer, a compartir y, sobre todo, a participar. Que estas letras sean la mecha que
+                    encienda la hoguera de las nuevas acciones.
+                  </p>
 
-              <p className={styles.closing}>El viaje comienza ahora. ¿Nos acompañas?</p>
+                  <p className={styles.closing}>El viaje comienza ahora. ¿Nos acompañas?</p>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -116,7 +160,7 @@ export default function EditorialModal() {
       {/* Audio Element: loop={false} para que no se repita */}
       <audio 
         ref={audioRef} 
-        src="/musica-editorial.mp3" 
+        src={editorialData?.audioUrl || "/musica-editorial.mp3"} 
         preload="auto"
         loop={false} 
       />
