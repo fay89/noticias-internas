@@ -171,12 +171,9 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
       };
 
       // Manejamos datos de autor si es Tribuna de opinión o Rostros con sentido
-      if (category === 'La tribuna de opinión') {
+      if (category === 'La tribuna de opinión' || category === 'Rostros con sentido') {
         articleData.authorName = authorName;
         articleData.authorRole = authorRole;
-      } else if (category === 'Rostros con sentido') {
-        articleData.authorRole = authorRole;
-        articleData.authorName = '';
       } else if (category === 'Editorial') {
         articleData.authorName = authorName;
         if (finalAudioUrl) articleData.audioUrl = finalAudioUrl;
@@ -245,18 +242,16 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
 
           {(category === 'La tribuna de opinión' || category === 'Rostros con sentido') && (
             <>
-              {category === 'La tribuna de opinión' && (
-                <div className={styles.formGroup}>
-                  <label>Nombre del Autor</label>
-                  <input 
-                    type="text" 
-                    value={authorName} 
-                    onChange={(e) => setAuthorName(e.target.value)} 
-                    placeholder="Ej: María García"
-                    className={styles.inputTitle}
-                  />
-                </div>
-              )}
+              <div className={styles.formGroup}>
+                <label>{category === 'Rostros con sentido' ? 'Nombre del Entrevistado' : 'Nombre del Autor'}</label>
+                <input 
+                  type="text" 
+                  value={authorName} 
+                  onChange={(e) => setAuthorName(e.target.value)} 
+                  placeholder="Ej: María García"
+                  className={styles.inputTitle}
+                />
+              </div>
               <div className={styles.formGroup}>
                 <label>{category === 'Rostros con sentido' ? 'Perfil del Entrevistado' : 'Rol del Autor'}</label>
                 <select value={authorRole} onChange={(e) => setAuthorRole(e.target.value)} className={styles.select}>

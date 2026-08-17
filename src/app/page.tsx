@@ -97,9 +97,11 @@ export default function Home() {
                   <div className={styles.cardContent}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                       <span className={`${styles.categoryBadge} ${index % 2 === 0 ? styles.bgGreen : styles.bgEarth}`}>{article.category}</span>
-                      {article.authorRole && (
-                        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                          {article.authorRole}
+                      {(article.authorName || article.authorRole) && (
+                        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', textAlign: 'right' }}>
+                          {article.authorName && <span>{article.authorName}</span>}
+                          {article.authorName && article.authorRole && <span> | </span>}
+                          {article.authorRole && <span>{article.authorRole}</span>}
                         </span>
                       )}
                     </div>
