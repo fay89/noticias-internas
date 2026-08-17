@@ -86,13 +86,15 @@ export default function EditorialModal() {
       {isOpen && (
         <div className={styles.modalOverlay} onClick={closeEditorial}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <button className={styles.muteButton} onClick={toggleMute} title={isMuted ? "Activar sonido" : "Silenciar"}>
-              {isMuted ? (
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
-              ) : (
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-              )}
-            </button>
+            {editorialData?.audioUrl && (
+              <button className={styles.muteButton} onClick={toggleMute} title={isMuted ? "Activar sonido" : "Silenciar"}>
+                {isMuted ? (
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                )}
+              </button>
+            )}
             <button className={styles.closeButton} onClick={closeEditorial} title="Cerrar">
               &times;
             </button>
@@ -169,12 +171,14 @@ export default function EditorialModal() {
       )}
 
       {/* Audio Element: loop={false} para que no se repita */}
-      <audio 
-        ref={audioRef} 
-        src={editorialData?.audioUrl || "/musica-editorial.mp3"} 
-        preload="auto"
-        loop={false} 
-      />
+      {editorialData?.audioUrl && (
+        <audio 
+          ref={audioRef} 
+          src={editorialData.audioUrl} 
+          preload="auto"
+          loop={false} 
+        />
+      )}
     </>
   );
 }
