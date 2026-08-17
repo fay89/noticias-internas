@@ -45,15 +45,13 @@
 }
 
 .imageContainer {
-  margin-bottom: 50px;
+  margin: 0 auto 50px auto;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
-  background-color: var(--bg-surface-elevated, #f8f9fa);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .image {
