@@ -15,16 +15,27 @@ export default function EditorialModal() {
   useEffect(() => {
     const fetchEditorial = async () => {
       try {
+        // Obtenemos todas las editoriales para evitar requerir un índice compuesto en Firebase
         const q = query(
           collection(db, 'articles'),
-          where('category', '==', 'Editorial'),
-          where('status', '==', 'published'),
-          orderBy('createdAt', 'desc'),
-          limit(1)
+          where('category', '==', 'Editorial')
         );
         const snapshot = await getDocs(q);
+        
         if (!snapshot.empty) {
-          setEditorialData(snapshot.docs[0].data());
+          // Filtramos las publicadas y ordenamos en memoria por fecha más reciente
+          const editorials = snapshot.docs
+            .map(doc => ({ id: doc.id, ...doc.data() } as any))
+            .filter(ed => ed.status === 'published')
+            .sort((a, b) => {
+              const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+              const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+              return timeB - timeA;
+            });
+
+          if (editorials.length > 0) {
+            setEditorialData(editorials[0]);
+          }
         }
       } catch (error) {
         console.error('Error fetching editorial:', error);
